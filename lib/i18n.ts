@@ -98,7 +98,7 @@ export type Dict = {
     founderRole: string;
   };
   stem: { heading: string; intro: string; highlights: string[] };
-  media: { heading: string; intro: string; live: string; reel: string; watchYoutube: string; watchInstagram: string };
+  media: { heading: string; intro: string; live: string; reel: string; watchYoutube: string; watchInstagram: string; shorts: string; channel: string };
   future: {
     heading: string;
     intro: string;
@@ -387,6 +387,9 @@ const en: Dict = {
     reel: "Reel",
     watchYoutube: "Watch on YouTube",
     watchInstagram: "Watch on Instagram",
+    // NEW
+    shorts: "Watch our Shorts on YouTube",
+    channel: "YouTube channel",
   },
   // NEW — from the CSR presentation
   future: {
@@ -658,6 +661,8 @@ const hi: Dict = {
     reel: "रील",
     watchYoutube: "YouTube पर देखें",
     watchInstagram: "Instagram पर देखें",
+    shorts: "YouTube पर हमारे शॉर्ट्स देखें",
+    channel: "YouTube चैनल",
   },
   // NEW — from the CSR presentation
   future: {
@@ -928,6 +933,8 @@ const gu: Dict = {
     reel: "રીલ",
     watchYoutube: "YouTube પર જુઓ",
     watchInstagram: "Instagram પર જુઓ",
+    shorts: "YouTube પર અમારા શોર્ટ્સ જુઓ",
+    channel: "YouTube ચેનલ",
   },
   // NEW — from the CSR presentation
   future: {

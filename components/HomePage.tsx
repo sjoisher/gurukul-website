@@ -394,9 +394,14 @@ export function HomePage({ lang }: { lang: Lang }) {
         {/* Media */}
         <section id="media" className="section bg-earth-dark text-white">
           <div className="container-page">
-            <div className="max-w-2xl">
-              <h2 className="font-display text-3xl font-semibold sm:text-4xl">{t.media.heading}</h2>
-              <p className="mt-4 text-lg text-white/75">{t.media.intro}</p>
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+              <div className="max-w-2xl">
+                <h2 className="font-display text-3xl font-semibold sm:text-4xl">{t.media.heading}</h2>
+                <p className="mt-4 text-lg text-white/75">{t.media.intro}</p>
+              </div>
+              <a href={`${site.youtubeChannel}/shorts`} target="_blank" rel="noopener noreferrer" className="btn-light shrink-0 self-start sm:self-auto">
+                <Youtube className="h-4 w-4" /> {t.media.shorts}
+              </a>
             </div>
             <div className="mt-10 grid gap-6 lg:grid-cols-[1.6fr_1fr]">
               <div>
@@ -737,6 +742,7 @@ export function HomePage({ lang }: { lang: Lang }) {
               postalCode: site.postcode,
               addressCountry: "IN",
             },
+            sameAs: [site.youtubeChannel],
             parentOrganization: { "@type": "NGO", name: "Shri Nityanand Shivanand Saraswati Yog Niketan Trust", foundingDate: "1993" },
           }),
         }}

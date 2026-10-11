@@ -1,3 +1,4 @@
+import { Youtube } from "lucide-react";
 import { langLabel, langPath, langs, type Dict, type Lang } from "@/lib/i18n";
 import { site } from "@/lib/site";
 import { Logo } from "./Logo";
@@ -29,6 +30,11 @@ export function Footer({ lang, t }: { lang: Lang; t: Dict }) {
         <div className="space-y-2 text-sm">
           <p><a href={`tel:+91${site.phone}`} className="hover:text-white">{site.phone}</a> · <a href={`tel:+91${site.phone2}`} className="hover:text-white">{site.phone2}</a></p>
           <p><a href={`mailto:${site.email}`} className="break-all hover:text-white">{site.email}</a></p>
+          <p>
+            <a href={site.youtubeChannel} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-white">
+              <Youtube className="h-4 w-4" /> {t.media.channel}
+            </a>
+          </p>
           <p className="pt-2">
             {langs.map((l, i) => (
               <span key={l}>
