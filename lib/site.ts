@@ -1,7 +1,7 @@
 // Facts that are the same in every language.
 
 export const site = {
-  url: "https://gurukul.joisher.com",
+  url: "https://vedicgurukul.com",
   phone: "8305209795",
   phoneIntl: "+918305209795",
   phone2: "9773481979",

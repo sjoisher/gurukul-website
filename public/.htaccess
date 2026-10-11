@@ -1,0 +1,63 @@
+# Apache config for vedicgurukul.com on cPanel shared hosting.
+# Next.js copies this file from public/ into out/, so it ships with every deploy.
+
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+DirectorySlash On
+Options -Indexes
+
+# www → apex. Matched explicitly so the temporary cPanel hostname and any
+# staging alias are left alone.
+#
+# HTTPS is NOT forced here: until DNS points at the server, AutoSSL cannot
+# issue a certificate and a forced redirect would break the site. Once the
+# certificate is live, turn on Domains → Force HTTPS Redirect in cPanel.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^www\.vedicgurukul\.com$ [NC]
+  RewriteRule ^(.*)$ https://vedicgurukul.com/$1 [L,R=301]
+</IfModule>
+
+# The FTP deploy action keeps its sync state in the webroot; never serve it,
+# or other dotfiles. Named rather than a blanket ^\. rule so
+# .well-known/acme-challenge keeps working for AutoSSL.
+<FilesMatch "^\.(ftp-deploy-sync-state\.json|env.*|git.*|user\.ini|htpasswd|DS_Store)$">
+  Require all denied
+</FilesMatch>
+<FilesMatch "^\.ht">
+  Require all denied
+</FilesMatch>
+
+AddType video/mp4 .mp4
+AddType image/svg+xml .svg
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # HTML and data files change every deploy: always revalidate.
+  <FilesMatch "\.(html|json|xml|txt)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+
+  # Photos, videos and the PDF keep their names when replaced, so cache for a
+  # week rather than forever.
+  <FilesMatch "\.(jpe?g|png|webp|svg|ico|mp4|pdf)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+</IfModule>
+
+# Next's build output under /_next/static/ is content-hashed: a changed file
+# gets a new name, so it is safe to cache for a year. Set in
+# _next/static/.htaccess below would be cleaner, but Next empties that
+# directory on each build, so match on the path here instead.
+<IfModule mod_headers.c>
+  <If "%{REQUEST_URI} =~ m#^/_next/static/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript application/json image/svg+xml text/xml application/xml text/plain
+</IfModule>
