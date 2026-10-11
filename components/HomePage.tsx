@@ -562,7 +562,7 @@ export function HomePage({ lang }: { lang: Lang }) {
             telephone: [`+91${site.phone}`, `+91${site.phone2}`],
             address: {
               "@type": "PostalAddress",
-              streetAddress: "Bhavanipar, Taluka Abdasa",
+              streetAddress: "Bhavanipur, Taluka Abdasa",
               addressLocality: "Kutch (Bhuj)",
               addressRegion: "Gujarat",
               postalCode: site.postcode,

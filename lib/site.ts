@@ -14,7 +14,7 @@ export const site = {
     "https://docs.google.com/forms/d/e/1FAIpQLScb3X70igy6hgxaL_7_wo-KGKDukis0lK3ID9bgjSE202qkqA/viewform",
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=" +
-    encodeURIComponent("Sant Shri Odhavram Vaidic Gurukul, Bhavanipar, Abdasa, Kutch, Gujarat 370650"),
+    encodeURIComponent("Sant Shri Odhavram Vaidic Gurukul, Bhavanipur, Abdasa, Kutch, Gujarat 370650"),
   bank: {
     accountNumber: "00801010005422",
     ifsc: "JSBL0000008",

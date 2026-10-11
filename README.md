@@ -1,6 +1,6 @@
 # Sant Shri Odhavram Vaidic Gurukul — website
 
-Trilingual static site for the Gurukul at Bhavanipar, Kutch: English at `/`, Hindi at `/hi/`, Gujarati at `/gu/`. Built with Next.js 14 (static export) and Tailwind CSS.
+Trilingual static site for the Gurukul at Bhavanipur, Kutch: English at `/`, Hindi at `/hi/`, Gujarati at `/gu/`. Built with Next.js 14 (static export) and Tailwind CSS.
 
 ```bash
 npm install
