@@ -24,14 +24,17 @@ export type Dict = {
   nav: { id: string; label: string }[];
   donate: string;
   menu: { open: string; close: string };
-  hero: { tagline: string; intro: string; ctaVisit: string; ctaSupport: string };
+  hero: { slogan: string; subSlogan: string; tagline: string; intro: string; ctaVisit: string; ctaSupport: string };
   glance: { value: string; label: string }[];
-  about: { heading: string; body: string };
+  about: { heading: string; body: string; infraHeading: string; infra: string[] };
   parampara: { heading: string; intro: string; people: { name: string; note: string }[] };
   teachers: { heading: string; intro: string; people: { name: string; note: string }[] };
   vision: {
     heading: string;
     statement: string;
+    missionHeading: string;
+    mission: { title: string; text: string }[];
+    missionLine: string;
     nature: string;
     philosophyLabel: string;
     philosophy: string;
@@ -44,7 +47,7 @@ export type Dict = {
     campus: string[];
     closing: string;
   };
-  learning: { heading: string; items: { title: string; text: string }[] };
+  learning: { heading: string; intro: string; areas: { title: string; points: string }[]; items: { title: string; text: string }[] };
   dinacharya: {
     heading: string;
     intro: string;
@@ -94,6 +97,25 @@ export type Dict = {
   };
   stem: { heading: string; intro: string; highlights: string[]; captions: string[] };
   media: { heading: string; intro: string; live: string; reel: string; watchYoutube: string; watchInstagram: string };
+  future: {
+    heading: string;
+    intro: string;
+    planHeading: string;
+    plan: string[];
+    planNote: string;
+    themesHeading: string;
+    themes: string[];
+    totalLabel: string;
+    total: string;
+    centreHeading: string;
+    centreIntro: string;
+    centreItems: string[];
+    centreFacts: { label: string; value: string }[];
+    levelsHeading: string;
+    levels: { title: string; amount: string; text: string }[];
+    levelsNote: string;
+    cta: string;
+  };
   visit: { heading: string; intro: string; formHeading: string; openForm: string };
   contact: {
     heading: string;
@@ -143,12 +165,16 @@ const en: Dict = {
     { id: "science", label: "Science" },
     { id: "dinacharya", label: "Dinacharya" },
     { id: "gallery", label: "Gallery" },
+    { id: "future", label: "Future" },
     { id: "support", label: "Support" },
     { id: "contact", label: "Contact" },
   ],
   donate: "Donate",
   menu: { open: "Open menu", close: "Close menu" },
   hero: {
+    // NEW — from the CSR presentation
+    slogan: "A Modern Nalanda. An Ancient Gurukul.",
+    subSlogan: "Preserving Ancient Wisdom. Building Future-Ready India.",
     tagline: "A Vedic Gurukul rooted in Dharma and Nature",
     // NEW
     intro:
@@ -157,15 +183,18 @@ const en: Dict = {
     ctaSupport: "Support the Gurukul",
   },
   // NEW — figures taken from the Dinacharya PDF
+  // From the CSR presentation and the Trust letterhead
   glance: [
-    { value: "05:00", label: "The day begins in Brahma Muhurta" },
-    { value: "2×", label: "Sandhya and havan every day" },
-    { value: "7", label: "Sports and martial arts across the week" },
-    { value: "1993", label: "Serving since the Trust was founded" },
+    { value: "45", label: "Students today" },
+    { value: "6", label: "Teachers & acharyas" },
+    { value: "20 years", label: "of the Gurukul's educational work" },
+    { value: "1993", label: "Trust established" },
   ],
   about: {
     heading: "About the Gurukul",
     body: "Sant Shri Odhavram Vaidic Gurukul, Bhavanipar, is dedicated to the creation of character-driven and capable brahmacharis through Vedic education combined with modern learning, discipline, and cultural values. The Gurukul follows the traditional Gurukulam system where learning is integrated with daily life, service, and spiritual practice.",
+    infraHeading: "Already on campus",
+    infra: ["Classrooms", "Dormitories", "Prayer hall", "Kitchen", "Gardens"],
   },
   // NEW — names taken from the Gurukul banner
   parampara: {
@@ -192,8 +221,18 @@ const en: Dict = {
   },
   vision: {
     heading: "Our Vision",
+    // From the CSR presentation (replaces the original site's statement)
     statement:
-      "To nurture children as conscious, compassionate, and ecologically rooted human beings by integrating Vedic wisdom, regenerative living, and a deep connection with land, water, food, and community.",
+      "To create a benchmark Gurukul where Vedic wisdom, character, modern academic excellence, scientific thinking, nature-based living and self-reliance come together to nurture enlightened, grounded and future-ready students who serve India and the world.",
+    missionHeading: "Our Mission",
+    mission: [
+      { title: "Learn", text: "through Vedic and contemporary education" },
+      { title: "Think", text: "through science, inquiry and innovation" },
+      { title: "Live", text: "with discipline, nature and self-reliance" },
+      { title: "Create", text: "through skills, technology and experiential learning" },
+      { title: "Serve", text: "with character, responsibility and compassion" },
+    ],
+    missionLine: "The Gurukul seeks to develop not merely successful students, but capable, responsible human beings.",
     nature:
       "This Gurukul is not a school separated from nature—it is nature as teacher. Children learn by living the rhythms of the sun, seasons, soil, animals, and self.",
     philosophyLabel: "Core Philosophy",
@@ -220,6 +259,14 @@ const en: Dict = {
   },
   learning: {
     heading: "Learning & Activities",
+    intro: "Rooted in wisdom. Relevant to tomorrow.",
+    areas: [
+      { title: "Vedic Knowledge", points: "Sanskrit · Vedas · Shlokas · Indian philosophy" },
+      { title: "Academic Learning", points: "Mathematics · Science · Languages · Contemporary education" },
+      { title: "Experiential Learning", points: "Projects · Experiments · Hands-on discovery" },
+      { title: "Living with Nature", points: "Farming · Gardens · Sustainability · Self-reliance" },
+      { title: "Physical & Inner Culture", points: "Yoga · Surya Namaskar · Traditional Indian sports · Discipline" },
+    ],
     // titles from the original site; descriptions NEW, from the Dinacharya PDF
     items: [
       {
@@ -405,6 +452,34 @@ const en: Dict = {
     watchYoutube: "Watch on YouTube",
     watchInstagram: "Watch on Instagram",
   },
+  // NEW — from the CSR presentation
+  future: {
+    heading: "Building the Future",
+    intro: "A foundation has been built. Now we have an opportunity to build the future: a campus where every facility improves a child's ability to learn, think, create and contribute.",
+    planHeading: "The master plan includes",
+    plan: ["Open learning spaces", "Dining hall", "Bathing facilities", "Grain storage", "Herbal garden", "Nutrition garden", "Tree plantation", "Waste management", "Landscaping"],
+    planNote: "The campus master plan is being prepared with the architect.",
+    themesHeading: "CSR investment themes",
+    themes: ["Campus & core infrastructure", "Education & Centres of Excellence", "Digital Gurukul", "Living & self-reliance", "Sports, culture & wellness", "Green & sustainable Gurukul"],
+    totalLabel: "Total CSR requirement",
+    total: "₹1.80 crore",
+    centreHeading: "Robotics, AI & Innovation Centre",
+    centreIntro: "From learning technology to creating technology. A Centre of Excellence for hands-on work in robotics and new technology.",
+    centreItems: ["Robotics workstations", "Arduino & IoT kits", "AI learning tools", "Drone technology", "3D printing", "Coding & programming zone", "Student innovation & project display", "Digital teaching infrastructure"],
+    centreFacts: [
+      { label: "Total project cost", value: "₹30 lakh" },
+      { label: "CSR contribution requested", value: "₹9 lakh per year" },
+      { label: "Students benefited annually", value: "75" },
+    ],
+    levelsHeading: "How you can help",
+    levels: [
+      { title: "Support a component", amount: "₹25 lakh+", text: "Support a specific infrastructure or equipment component." },
+      { title: "Sponsor a facility", amount: "₹50 lakh+", text: "Help create an identifiable educational facility." },
+      { title: "Become a transformational partner", amount: "₹1 crore+", text: "Support a major campus development programme." },
+    ],
+    levelsNote: "Sponsorship levels are illustrative and subject to Trust approval. CSR partnerships can also be structured around specific projects, facilities, equipment or campus zones.",
+    cta: "Talk to us about CSR partnership",
+  },
   visit: {
     heading: "Visit or enquire",
     intro:
@@ -440,27 +515,34 @@ const hi: Dict = {
     { id: "science", label: "विज्ञान" },
     { id: "dinacharya", label: "दिनचर्या" },
     { id: "gallery", label: "गैलरी" },
+    { id: "future", label: "भविष्य" },
     { id: "support", label: "सहयोग" },
     { id: "contact", label: "संपर्क" },
   ],
   donate: "दान करें",
   menu: { open: "मेनू खोलें", close: "मेनू बंद करें" },
   hero: {
+    // NEW — from the CSR presentation
+    slogan: "एक आधुनिक नालंदा। एक प्राचीन गुरुकुल।",
+    subSlogan: "प्राचीन ज्ञान का संरक्षण। भविष्य के लिए तैयार भारत का निर्माण।",
     tagline: "धर्म और प्रकृति में निहित वैदिक गुरुकुल",
     intro:
       "कच्छ के भवानीपर में स्थित एक आवासीय गुरुकुल, जहाँ ब्रह्मचारी प्रकृति की लय के साथ जीते हुए वेद, संस्कृत और आधुनिक विषयों का अध्ययन करते हैं।",
     ctaVisit: "भ्रमण या पूछताछ",
     ctaSupport: "गुरुकुल को सहयोग दें",
   },
+  // From the CSR presentation and the Trust letterhead
   glance: [
-    { value: "05:00", label: "ब्रह्म मुहूर्त में दिन का आरंभ" },
-    { value: "2×", label: "प्रतिदिन संध्या एवं हवन" },
-    { value: "7", label: "सप्ताह भर खेल एवं युद्धकला" },
-    { value: "1993", label: "ट्रस्ट की स्थापना से सेवारत" },
+    { value: "45", label: "वर्तमान विद्यार्थी" },
+    { value: "6", label: "शिक्षक एवं आचार्य" },
+    { value: "20 वर्ष", label: "गुरुकुल का शैक्षणिक कार्य" },
+    { value: "1993", label: "ट्रस्ट की स्थापना" },
   ],
   about: {
     heading: "गुरुकुल परिचय",
     body: "संत श्री ओधवराम वैदिक गुरुकुल, भवानीपर, वैदिक शिक्षा को आधुनिक शिक्षा, अनुशासन और सांस्कृतिक मूल्यों के साथ जोड़कर चरित्रवान और सक्षम ब्रह्मचारियों के निर्माण के लिए समर्पित है। यह गुरुकुल पारंपरिक गुरुकुलम प्रणाली का अनुसरण करता है, जहाँ शिक्षा दैनिक जीवन, सेवा और आध्यात्मिक साधना के साथ एकीकृत होती है।",
+    infraHeading: "परिसर में उपलब्ध",
+    infra: ["कक्षाएँ", "छात्रावास", "प्रार्थना कक्ष", "रसोई", "उद्यान"],
   },
   parampara: {
     heading: "हमारी प्रेरणा",
@@ -484,8 +566,18 @@ const hi: Dict = {
   },
   vision: {
     heading: "हमारी दृष्टि",
+    // From the CSR presentation (replaces the original site's statement)
     statement:
-      "भूमि, जल, भोजन और समुदाय के साथ गहरे संबंध के माध्यम से वैदिक ज्ञान और पुनर्योजी जीवन पद्धति को एकीकृत कर बच्चों को जागरूक, करुणामय और पर्यावरण से जुड़े मानव के रूप में विकसित करना।",
+      "एक ऐसे आदर्श गुरुकुल का निर्माण करना जहाँ वैदिक ज्ञान, चरित्र, आधुनिक शैक्षणिक उत्कृष्टता, वैज्ञानिक चिंतन, प्रकृति-आधारित जीवन और आत्मनिर्भरता एक साथ मिलकर ऐसे प्रबुद्ध, संस्कारित और भविष्य के लिए तैयार विद्यार्थियों का निर्माण करें जो भारत और विश्व की सेवा करें।",
+    missionHeading: "हमारा ध्येय",
+    mission: [
+      { title: "सीखना", text: "वैदिक और समकालीन शिक्षा के माध्यम से" },
+      { title: "सोचना", text: "विज्ञान, जिज्ञासा और नवाचार के माध्यम से" },
+      { title: "जीना", text: "अनुशासन, प्रकृति और आत्मनिर्भरता के साथ" },
+      { title: "सृजन", text: "कौशल, तकनीक और अनुभवात्मक शिक्षा के माध्यम से" },
+      { title: "सेवा", text: "चरित्र, उत्तरदायित्व और करुणा के साथ" },
+    ],
+    missionLine: "गुरुकुल केवल सफल विद्यार्थी नहीं, बल्कि सक्षम और उत्तरदायी मनुष्य तैयार करना चाहता है।",
     nature:
       "यह गुरुकुल प्रकृति से अलग कोई विद्यालय नहीं है—यहाँ प्रकृति ही शिक्षक है। बच्चे सूर्य, ऋतुओं, मिट्टी, पशुओं और स्वयं के साथ जीवन जीकर सीखते हैं।",
     philosophyLabel: "मूल दर्शन",
@@ -512,6 +604,14 @@ const hi: Dict = {
   },
   learning: {
     heading: "शिक्षा और गतिविधियाँ",
+    intro: "ज्ञान में निहित। भविष्य के लिए प्रासंगिक।",
+    areas: [
+      { title: "वैदिक ज्ञान", points: "संस्कृत · वेद · श्लोक · भारतीय दर्शन" },
+      { title: "शैक्षणिक अध्ययन", points: "गणित · विज्ञान · भाषाएँ · समकालीन शिक्षा" },
+      { title: "अनुभवात्मक शिक्षा", points: "प्रोजेक्ट · प्रयोग · स्वयं करके सीखना" },
+      { title: "प्रकृति के साथ जीवन", points: "खेती · उद्यान · सततता · आत्मनिर्भरता" },
+      { title: "शारीरिक एवं आंतरिक संस्कार", points: "योग · सूर्य नमस्कार · पारंपरिक भारतीय खेल · अनुशासन" },
+    ],
     items: [
       {
         title: "वैदिक मंत्रोच्चार, संस्कृत और शास्त्र अध्ययन",
@@ -695,6 +795,34 @@ const hi: Dict = {
     watchYoutube: "YouTube पर देखें",
     watchInstagram: "Instagram पर देखें",
   },
+  // NEW — from the CSR presentation
+  future: {
+    heading: "भविष्य का निर्माण",
+    intro: "एक नींव रखी जा चुकी है। अब भविष्य के निर्माण का अवसर है — एक ऐसा परिसर जहाँ हर सुविधा बालक की सीखने, सोचने, सृजन करने और योगदान देने की क्षमता को बढ़ाए।",
+    planHeading: "मास्टर प्लान में शामिल",
+    plan: ["खुले अध्ययन स्थल", "भोजनालय", "स्नान सुविधाएँ", "अनाज भंडारण", "औषधीय उद्यान", "पोषण उद्यान", "वृक्षारोपण", "अपशिष्ट प्रबंधन", "भू-दृश्य"],
+    planNote: "परिसर का मास्टर प्लान वास्तुकार के साथ तैयार किया जा रहा है।",
+    themesHeading: "सीएसआर निवेश के क्षेत्र",
+    themes: ["परिसर एवं मूल अवसंरचना", "शिक्षा एवं उत्कृष्टता केंद्र", "डिजिटल गुरुकुल", "जीवन एवं आत्मनिर्भरता", "खेल, संस्कृति एवं स्वास्थ्य", "हरित एवं सतत गुरुकुल"],
+    totalLabel: "कुल सीएसआर आवश्यकता",
+    total: "₹1.80 करोड़",
+    centreHeading: "रोबोटिक्स, एआई एवं नवाचार केंद्र",
+    centreIntro: "तकनीक सीखने से तकनीक रचने तक। रोबोटिक्स और नई तकनीक में प्रत्यक्ष कार्य के लिए एक उत्कृष्टता केंद्र।",
+    centreItems: ["रोबोटिक्स वर्कस्टेशन", "आर्डुइनो एवं आईओटी किट", "एआई शिक्षण उपकरण", "ड्रोन तकनीक", "3D प्रिंटिंग", "कोडिंग एवं प्रोग्रामिंग क्षेत्र", "विद्यार्थी नवाचार एवं प्रोजेक्ट प्रदर्शन", "डिजिटल शिक्षण व्यवस्था"],
+    centreFacts: [
+      { label: "कुल परियोजना लागत", value: "₹30 लाख" },
+      { label: "अपेक्षित सीएसआर योगदान", value: "₹9 लाख प्रति वर्ष" },
+      { label: "प्रति वर्ष लाभान्वित विद्यार्थी", value: "75" },
+    ],
+    levelsHeading: "आप कैसे सहयोग कर सकते हैं",
+    levels: [
+      { title: "एक घटक में सहयोग", amount: "₹25 लाख+", text: "किसी विशेष अवसंरचना या उपकरण में सहयोग करें।" },
+      { title: "एक सुविधा प्रायोजित करें", amount: "₹50 लाख+", text: "एक पहचान योग्य शैक्षणिक सुविधा के निर्माण में सहायता करें।" },
+      { title: "परिवर्तनकारी सहभागी बनें", amount: "₹1 करोड़+", text: "परिसर विकास के एक बड़े कार्यक्रम में सहयोग करें।" },
+    ],
+    levelsNote: "प्रायोजन स्तर उदाहरण मात्र हैं और ट्रस्ट की स्वीकृति के अधीन हैं। सीएसआर साझेदारी किसी विशेष परियोजना, सुविधा, उपकरण या परिसर क्षेत्र के अनुसार भी तय की जा सकती है।",
+    cta: "सीएसआर साझेदारी के लिए संपर्क करें",
+  },
   visit: {
     heading: "भ्रमण एवं पूछताछ",
     intro:
@@ -730,27 +858,34 @@ const gu: Dict = {
     { id: "science", label: "વિજ્ઞાન" },
     { id: "dinacharya", label: "દિનચર્યા" },
     { id: "gallery", label: "ગેલેરી" },
+    { id: "future", label: "ભવિષ્ય" },
     { id: "support", label: "સહયોગ" },
     { id: "contact", label: "સંપર્ક" },
   ],
   donate: "દાન કરો",
   menu: { open: "મેનુ ખોલો", close: "મેનુ બંધ કરો" },
   hero: {
+    // NEW — from the CSR presentation
+    slogan: "એક આધુનિક નાલંદા. એક પ્રાચીન ગુરુકુલ.",
+    subSlogan: "પ્રાચીન જ્ઞાનનું સંરક્ષણ. ભવિષ્ય માટે તૈયાર ભારતનું નિર્માણ.",
     tagline: "ધર્મ અને પ્રકૃતિમાં આધારિત વૈદિક ગુરુકુલ",
     intro:
       "કચ્છના ભવાનીપરમાં આવેલું એક નિવાસી ગુરુકુલ, જ્યાં બ્રહ્મચારીઓ પ્રકૃતિની લય સાથે જીવતાં વેદ, સંસ્કૃત અને આધુનિક વિષયોનો અભ્યાસ કરે છે.",
     ctaVisit: "મુલાકાત અથવા પૂછપરછ",
     ctaSupport: "ગુરુકુલને સહયોગ આપો",
   },
+  // From the CSR presentation and the Trust letterhead
   glance: [
-    { value: "05:00", label: "બ્રહ્મ મુહૂર્તમાં દિવસની શરૂઆત" },
-    { value: "2×", label: "દરરોજ સંધ્યા અને હવન" },
-    { value: "7", label: "અઠવાડિયા દરમિયાન રમતો અને યુદ્ધકળા" },
-    { value: "1993", label: "ટ્રસ્ટની સ્થાપનાથી સેવારત" },
+    { value: "45", label: "હાલના વિદ્યાર્થીઓ" },
+    { value: "6", label: "શિક્ષકો અને આચાર્યો" },
+    { value: "20 વર્ષ", label: "ગુરુકુલનું શૈક્ષણિક કાર્ય" },
+    { value: "1993", label: "ટ્રસ્ટની સ્થાપના" },
   ],
   about: {
     heading: "ગુરુકુલ વિશે",
     body: "સંત શ્રી ઓધવરામ વૈદિક ગુરુકુલ, ભવાનીપર, વૈદિક શિક્ષણને આધુનિક અભ્યાસ, શિસ્ત અને સાંસ્કૃતિક મૂલ્યો સાથે જોડીને ચરિત્રવાન અને સક્ષમ બ્રહ્મચારીઓના નિર્માણ માટે સમર્પિત છે. ગુરુકુલ પરંપરાગત ગુરુકુલમ પદ્ધતિનું પાલન કરે છે, જ્યાં અભ્યાસ દૈનિક જીવન, સેવા અને આધ્યાત્મિક સાધના સાથે એકરૂપ બને છે.",
+    infraHeading: "પરિસરમાં ઉપલબ્ધ",
+    infra: ["વર્ગખંડો", "છાત્રાલય", "પ્રાર્થના ખંડ", "રસોડું", "બગીચા"],
   },
   parampara: {
     heading: "અમારી પ્રેરણા",
@@ -774,8 +909,18 @@ const gu: Dict = {
   },
   vision: {
     heading: "અમારું દ્રષ્ટિવાક્ય",
+    // From the CSR presentation (replaces the original site's statement)
     statement:
-      "વેદિક જ્ઞાન, પુનર્જીવિત જીવનશૈલી અને જમીન, પાણી, ખોરાક તથા સમુદાય સાથેના ઊંડા જોડાણ દ્વારા બાળકોને જાગૃત, કરુણાશીલ અને પર્યાવરણમાં મૂળભૂત માનવ તરીકે ઘડવાનું અમારું લક્ષ્ય છે.",
+      "એક એવું આદર્શ ગુરુકુલ બનાવવું જ્યાં વૈદિક જ્ઞાન, ચારિત્ર્ય, આધુનિક શૈક્ષણિક શ્રેષ્ઠતા, વૈજ્ઞાનિક વિચારસરણી, પ્રકૃતિ આધારિત જીવન અને આત્મનિર્ભરતા એકસાથે મળીને એવા પ્રબુદ્ધ, સંસ્કારી અને ભવિષ્ય માટે તૈયાર વિદ્યાર્થીઓ ઘડે જે ભારત અને વિશ્વની સેવા કરે.",
+    missionHeading: "અમારું ધ્યેય",
+    mission: [
+      { title: "શીખવું", text: "વૈદિક અને સમકાલીન શિક્ષણ દ્વારા" },
+      { title: "વિચારવું", text: "વિજ્ઞાન, જિજ્ઞાસા અને નવીનતા દ્વારા" },
+      { title: "જીવવું", text: "શિસ્ત, પ્રકૃતિ અને આત્મનિર્ભરતા સાથે" },
+      { title: "સર્જન", text: "કૌશલ્ય, ટેકનોલોજી અને અનુભવાત્મક શિક્ષણ દ્વારા" },
+      { title: "સેવા", text: "ચારિત્ર્ય, જવાબદારી અને કરુણા સાથે" },
+    ],
+    missionLine: "ગુરુકુલ માત્ર સફળ વિદ્યાર્થીઓ નહીં, પરંતુ સક્ષમ અને જવાબદાર માનવીઓ ઘડવા માગે છે.",
     nature:
       "આ ગુરુકુલ પ્રકૃતિથી અલગ પડેલી શાળા નથી—અહીં પ્રકૃતિ જ ગુરુ છે. બાળકો સૂર્ય, ઋતુઓ, માટી, પશુઓ અને સ્વ સાથે જીવતાં શીખે છે.",
     philosophyLabel: "મૂલ દર્શન",
@@ -802,6 +947,14 @@ const gu: Dict = {
   },
   learning: {
     heading: "અભ્યાસ અને પ્રવૃત્તિઓ",
+    intro: "જ્ઞાનમાં મૂળ. ભવિષ્ય માટે પ્રાસંગિક.",
+    areas: [
+      { title: "વૈદિક જ્ઞાન", points: "સંસ્કૃત · વેદ · શ્લોક · ભારતીય દર્શન" },
+      { title: "શૈક્ષણિક અભ્યાસ", points: "ગણિત · વિજ્ઞાન · ભાષાઓ · સમકાલીન શિક્ષણ" },
+      { title: "અનુભવાત્મક શિક્ષણ", points: "પ્રોજેક્ટ · પ્રયોગો · જાતે કરીને શીખવું" },
+      { title: "પ્રકૃતિ સાથે જીવન", points: "ખેતી · બગીચા · ટકાઉપણું · આત્મનિર્ભરતા" },
+      { title: "શારીરિક અને આંતરિક સંસ્કાર", points: "યોગ · સૂર્ય નમસ્કાર · પરંપરાગત ભારતીય રમતો · શિસ્ત" },
+    ],
     items: [
       {
         title: "વેદિક જાપ, સંસ્કૃત અને શાસ્ત્ર અધ્યયન",
@@ -983,6 +1136,34 @@ const gu: Dict = {
     reel: "રીલ",
     watchYoutube: "YouTube પર જુઓ",
     watchInstagram: "Instagram પર જુઓ",
+  },
+  // NEW — from the CSR presentation
+  future: {
+    heading: "ભવિષ્યનું નિર્માણ",
+    intro: "એક પાયો નખાઈ ચૂક્યો છે. હવે ભવિષ્ય ઘડવાની તક છે — એવું પરિસર જ્યાં દરેક સુવિધા બાળકની શીખવાની, વિચારવાની, સર્જન કરવાની અને યોગદાન આપવાની ક્ષમતા વધારે.",
+    planHeading: "માસ્ટર પ્લાનમાં સમાવિષ્ટ",
+    plan: ["ખુલ્લા અભ્યાસ સ્થળો", "ભોજનશાળા", "સ્નાન સુવિધાઓ", "અનાજ સંગ્રહ", "ઔષધીય બગીચો", "પોષણ બગીચો", "વૃક્ષારોપણ", "કચરા વ્યવસ્થાપન", "લેન્ડસ્કેપિંગ"],
+    planNote: "પરિસરનો માસ્ટર પ્લાન આર્કિટેક્ટ સાથે તૈયાર થઈ રહ્યો છે.",
+    themesHeading: "સીએસઆર રોકાણના ક્ષેત્રો",
+    themes: ["પરિસર અને મૂળભૂત માળખું", "શિક્ષણ અને શ્રેષ્ઠતા કેન્દ્રો", "ડિજિટલ ગુરુકુલ", "જીવન અને આત્મનિર્ભરતા", "રમતગમત, સંસ્કૃતિ અને સુખાકારી", "હરિત અને ટકાઉ ગુરુકુલ"],
+    totalLabel: "કુલ સીએસઆર જરૂરિયાત",
+    total: "₹1.80 કરોડ",
+    centreHeading: "રોબોટિક્સ, એઆઈ અને નવીનતા કેન્દ્ર",
+    centreIntro: "ટેકનોલોજી શીખવાથી ટેકનોલોજી રચવા સુધી. રોબોટિક્સ અને નવી ટેકનોલોજીમાં પ્રત્યક્ષ કાર્ય માટેનું શ્રેષ્ઠતા કેન્દ્ર.",
+    centreItems: ["રોબોટિક્સ વર્કસ્ટેશન", "આર્ડુઇનો અને આઈઓટી કિટ", "એઆઈ શિક્ષણ સાધનો", "ડ્રોન ટેકનોલોજી", "3D પ્રિન્ટિંગ", "કોડિંગ અને પ્રોગ્રામિંગ ઝોન", "વિદ્યાર્થી નવીનતા અને પ્રોજેક્ટ પ્રદર્શન", "ડિજિટલ શિક્ષણ વ્યવસ્થા"],
+    centreFacts: [
+      { label: "કુલ પ્રોજેક્ટ ખર્ચ", value: "₹30 લાખ" },
+      { label: "અપેક્ષિત સીએસઆર યોગદાન", value: "દર વર્ષે ₹9 લાખ" },
+      { label: "દર વર્ષે લાભાન્વિત વિદ્યાર્થીઓ", value: "75" },
+    ],
+    levelsHeading: "આપ કેવી રીતે સહયોગ આપી શકો",
+    levels: [
+      { title: "એક ઘટકમાં સહયોગ", amount: "₹25 લાખ+", text: "કોઈ ચોક્કસ માળખા કે સાધનમાં સહયોગ આપો." },
+      { title: "એક સુવિધા પ્રાયોજિત કરો", amount: "₹50 લાખ+", text: "ઓળખી શકાય તેવી શૈક્ષણિક સુવિધા બનાવવામાં મદદ કરો." },
+      { title: "પરિવર્તનકારી ભાગીદાર બનો", amount: "₹1 કરોડ+", text: "પરિસર વિકાસના મોટા કાર્યક્રમમાં સહયોગ આપો." },
+    ],
+    levelsNote: "પ્રાયોજન સ્તરો ઉદાહરણરૂપ છે અને ટ્રસ્ટની મંજૂરીને આધીન છે. સીએસઆર ભાગીદારી ચોક્કસ પ્રોજેક્ટ, સુવિધા, સાધન કે પરિસર વિસ્તાર મુજબ પણ ગોઠવી શકાય છે.",
+    cta: "સીએસઆર ભાગીદારી માટે સંપર્ક કરો",
   },
   visit: {
     heading: "મુલાકાત અને પૂછપરછ",

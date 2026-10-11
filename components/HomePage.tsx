@@ -4,10 +4,13 @@ import {
   Clock,
   Cpu,
   Download,
+  HandHeart,
   ExternalLink,
   HeartHandshake,
   Instagram,
   Landmark,
+  Leaf,
+  Lightbulb,
   Mail,
   MapPin,
   MessageCircle,
@@ -17,6 +20,7 @@ import {
   ScrollText,
   Sparkles,
   Sun,
+  Wrench,
   Youtube,
 } from "lucide-react";
 import { dict, htmlLang, type Lang } from "@/lib/i18n";
@@ -28,6 +32,7 @@ import { Header } from "./Header";
 import { Video } from "./Video";
 
 const learningIcons = [ScrollText, Monitor, Sun, Music];
+const missionIcons = [BookOpen, Lightbulb, Leaf, Wrench, HandHeart];
 
 function Heading({ eyebrow, title, intro, center }: { eyebrow?: string; title: string; intro?: string; center?: boolean }) {
   return (
@@ -63,7 +68,9 @@ export function HomePage({ lang }: { lang: Lang }) {
             <p className="text-sm font-semibold tracking-[0.2em] text-saffron-light">{t.motto}</p>
             <h1 className="mt-4 max-w-3xl font-display text-4xl font-semibold leading-[1.15] sm:text-5xl lg:text-6xl">{t.name}</h1>
             <p className="mt-3 text-lg text-saffron-light sm:text-xl">{t.place}</p>
-            <p className="mt-6 max-w-2xl font-display text-xl italic text-white/95 sm:text-2xl">{t.hero.tagline}</p>
+            <p className="mt-6 font-display text-2xl font-semibold text-white sm:text-3xl">{t.hero.slogan}</p>
+            <p className="mt-1 text-white/80">{t.hero.subSlogan}</p>
+            <p className="mt-5 max-w-2xl font-display text-lg italic text-white/90 sm:text-xl">{t.hero.tagline}</p>
             <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/80">{t.hero.intro}</p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <a href="#visit" className="btn-primary">
@@ -95,6 +102,14 @@ export function HomePage({ lang }: { lang: Lang }) {
             <div>
               <Heading eyebrow={label("about")} title={t.about.heading} />
               <p className="lead">{t.about.body}</p>
+              <div className="mt-6">
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted">{t.about.infraHeading}</p>
+                <ul className="mt-2 flex flex-wrap gap-2">
+                  {t.about.infra.map((x) => (
+                    <li key={x} className="rounded-full bg-white px-3 py-1 text-sm font-medium text-earth ring-1 ring-sand">{x}</li>
+                  ))}
+                </ul>
+              </div>
               <p className="mt-6 text-sm text-muted">{t.trust.intro}</p>
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -139,6 +154,23 @@ export function HomePage({ lang }: { lang: Lang }) {
             <blockquote className="mt-8 max-w-4xl border-l-4 border-saffron pl-6 font-display text-2xl leading-snug text-earth sm:text-3xl">
               {t.vision.statement}
             </blockquote>
+
+            <h3 className="mt-14 font-display text-2xl font-semibold">{t.vision.missionHeading}</h3>
+            <ol className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+              {t.vision.mission.map((m, i) => {
+                const Icon = missionIcons[i];
+                return (
+                  <li key={m.title} className="card p-5 text-center">
+                    <span className="mx-auto inline-flex h-11 w-11 items-center justify-center rounded-full bg-saffron-light text-earth">
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <p className="mt-3 font-display text-lg font-semibold uppercase tracking-wide text-vermilion">{m.title}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-muted">{m.text}</p>
+                  </li>
+                );
+              })}
+            </ol>
+            <p className="mt-6 text-center font-medium text-earth">{t.vision.missionLine}</p>
             <div className="mt-10 grid gap-8 lg:grid-cols-2">
               <p className="text-lg leading-relaxed text-muted">{t.vision.nature}</p>
               <p className="text-lg leading-relaxed text-muted">{t.vision.campusOrganism}</p>
@@ -185,8 +217,16 @@ export function HomePage({ lang }: { lang: Lang }) {
         {/* Learning */}
         <section id="learning" className="section bg-sand/60">
           <div className="container-page">
-            <Heading eyebrow={label("learning")} title={t.learning.heading} />
-            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <Heading eyebrow={label("learning")} title={t.learning.heading} intro={t.learning.intro} />
+            <ul className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+              {t.learning.areas.map((a) => (
+                <li key={a.title} className="rounded-2xl border border-earth/15 bg-parchment p-5">
+                  <p className="font-display text-lg font-semibold text-vermilion">{a.title}</p>
+                  <p className="mt-1.5 text-sm leading-relaxed text-muted">{a.points}</p>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {t.learning.items.map((item, i) => {
                 const Icon = learningIcons[i];
                 return (
@@ -434,6 +474,86 @@ export function HomePage({ lang }: { lang: Lang }) {
                   ))}
                 </ol>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Building the future */}
+        <section id="future" className="section bg-earth-dark text-white">
+          <div className="container-page">
+            <div className="max-w-3xl">
+              <p className="eyebrow !text-saffron-light">{label("future")}</p>
+              <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">{t.future.heading}</h2>
+              <p className="mt-4 text-lg leading-relaxed text-white/80">{t.future.intro}</p>
+            </div>
+
+            <div className="mt-12 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
+              <div className="rounded-2xl bg-white/5 p-7 ring-1 ring-white/10">
+                <h3 className="font-display text-xl font-semibold">{t.future.themesHeading}</h3>
+                <ol className="mt-5 grid gap-3 sm:grid-cols-2">
+                  {t.future.themes.map((th, i) => (
+                    <li key={th} className="flex items-center gap-3 rounded-xl bg-white/5 px-4 py-3">
+                      <span className="font-display text-lg font-semibold text-saffron">{String(i + 1).padStart(2, "0")}</span>
+                      <span className="text-sm font-medium">{th}</span>
+                    </li>
+                  ))}
+                </ol>
+                <div className="mt-6 flex flex-wrap items-baseline justify-between gap-3 rounded-xl bg-saffron px-5 py-4 text-white">
+                  <span className="text-sm font-semibold uppercase tracking-wider">{t.future.totalLabel}</span>
+                  <span className="font-display text-3xl font-semibold">{t.future.total}</span>
+                </div>
+              </div>
+              <div className="rounded-2xl bg-white/5 p-7 ring-1 ring-white/10">
+                <h3 className="font-display text-xl font-semibold">{t.future.planHeading}</h3>
+                <ul className="mt-5 flex flex-wrap gap-2">
+                  {t.future.plan.map((x) => (
+                    <li key={x} className="rounded-full bg-white/10 px-3 py-1.5 text-sm">{x}</li>
+                  ))}
+                </ul>
+                <p className="mt-5 text-sm text-white/60">{t.future.planNote}</p>
+              </div>
+            </div>
+
+            <div className="mt-6 grid gap-6 rounded-2xl bg-white p-7 text-ink lg:grid-cols-[1.3fr_1fr]">
+              <div>
+                <h3 className="flex items-center gap-2 font-display text-2xl font-semibold text-earth">
+                  <Cpu className="h-6 w-6 text-saffron" /> {t.future.centreHeading}
+                </h3>
+                <p className="mt-3 leading-relaxed text-muted">{t.future.centreIntro}</p>
+                <ul className="mt-5 grid gap-x-6 gap-y-2 sm:grid-cols-2">
+                  {t.future.centreItems.map((x) => (
+                    <li key={x} className="flex gap-2.5 text-sm"><Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-saffron" /> {x}</li>
+                  ))}
+                </ul>
+              </div>
+              <dl className="grid content-start gap-3">
+                {t.future.centreFacts.map((f) => (
+                  <div key={f.label} className="rounded-xl bg-parchment px-5 py-4">
+                    <dt className="text-xs font-semibold uppercase tracking-wider text-muted">{f.label}</dt>
+                    <dd className="mt-1 font-display text-2xl font-semibold text-earth">{f.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+
+            <h3 className="mt-14 font-display text-2xl font-semibold">{t.future.levelsHeading}</h3>
+            <ul className="mt-6 grid gap-4 md:grid-cols-3">
+              {t.future.levels.map((l) => (
+                <li key={l.title} className="rounded-2xl bg-white/5 p-6 text-center ring-1 ring-white/10">
+                  <p className="font-display text-lg font-semibold">{l.title}</p>
+                  <p className="mx-auto mt-3 w-fit rounded-lg bg-saffron-light px-4 py-1.5 font-display text-2xl font-semibold text-earth">{l.amount}</p>
+                  <p className="mt-3 text-sm text-white/75">{l.text}</p>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-5 text-sm text-white/60">{t.future.levelsNote}</p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a href={whatsappLink(t.future.cta)} target="_blank" rel="noopener noreferrer" className="btn-primary">
+                <MessageCircle className="h-4 w-4" /> {t.future.cta}
+              </a>
+              <a href={`mailto:${site.email}?subject=${encodeURIComponent("CSR partnership")}`} className="btn-light">
+                <Mail className="h-4 w-4" /> {site.email}
+              </a>
             </div>
           </div>
         </section>
