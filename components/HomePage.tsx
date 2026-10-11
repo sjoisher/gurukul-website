@@ -676,7 +676,7 @@ export function HomePage({ lang }: { lang: Lang }) {
             name: dict.en.name,
             alternateName: [dict.hi.name, dict.gu.name],
             url: site.url,
-            logo: `${site.url}/icon.svg`,
+            logo: `${site.url}/images/logo.png`,
             image: `${site.url}/images/og.jpg`,
             email: site.email,
             telephone: [`+91${site.phone}`, `+91${site.phone2}`],

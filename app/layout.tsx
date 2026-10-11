@@ -19,7 +19,6 @@ const gujSerif = Noto_Serif_Gujarati({ subsets: ["gujarati"], weight: ["500", "6
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  icons: { icon: "/icon.svg" },
 };
 
 export const viewport: Viewport = { themeColor: "#7B4A12" };

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { HeartHandshake, Menu, X } from "lucide-react";
 import { langLabel, langPath, langShort, langs, type Dict, type Lang } from "@/lib/i18n";
-import { Mark } from "./Mark";
+import { Logo } from "./Logo";
 
 export function Header({ lang, t }: { lang: Lang; t: Dict }) {
   const [open, setOpen] = useState(false);
@@ -43,7 +43,7 @@ export function Header({ lang, t }: { lang: Lang; t: Dict }) {
     <header className="sticky top-0 z-40 border-b border-sand bg-parchment/90 backdrop-blur">
       <div className="container-page flex h-16 items-center justify-between gap-4">
         <a href="#top" className="flex min-w-0 items-center gap-2.5">
-          <Mark className="h-9 w-9 shrink-0" />
+          <Logo className="h-11 w-auto shrink-0" />
           <span className="min-w-0 leading-tight">
             <span className="block truncate font-display text-base font-semibold text-earth">{t.shortName}</span>
             <span className="block truncate text-xs text-muted">{t.place}</span>
