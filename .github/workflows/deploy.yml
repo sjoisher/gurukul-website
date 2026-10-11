@@ -102,7 +102,9 @@ jobs:
           HOST: vedicgurukul.com
         run: |
           fail=0
-          get() { curl -s --max-time 30 -H "Host: $HOST" -o "$2" -w '%{http_code} %{content_type} %{size_download}B' "http://$SITE_IP$1"; }
+          get() { curl -s --max-time 30 -H "Host: $HOST" -A "Mozilla/5.0 (deploy check)" -o "$2" -w '%{http_code} %{content_type} %{size_download}B -> %{redirect_url}' "http://$SITE_IP$1"; }
+          # On a mismatch, show what the server actually sent (first 400 bytes, one line).
+          show() { echo "      body: $(head -c 400 "$1" | tr '\n\r\t' '   ')"; }
 
           # path | text the page must contain
           while IFS='|' read -r path marker; do
@@ -111,6 +113,7 @@ jobs:
               echo "ok    $path  ($res)"
             else
               echo "::error::$path did not return the Gurukul page ($res). Title: $(grep -o '<title>[^<]*' /tmp/page | head -1)"
+              show /tmp/page
               fail=1
             fi
           done <<'PAGES'
@@ -124,7 +127,7 @@ jobs:
             res=$(get "$path" /tmp/file)
             case "$res" in
               "200 $type"*) echo "ok    $path  ($res)" ;;
-              *) echo "::error::$path: expected 200 $type, got $res"; fail=1 ;;
+              *) echo "::error::$path: expected 200 $type, got $res"; show /tmp/file; fail=1 ;;
             esac
           done <<'FILES'
           /images/og.jpg|image/jpeg

@@ -52,15 +52,15 @@ export function Header({ lang, t }: { lang: Lang; t: Dict }) {
 
         <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Sections">
           {t.nav.map((n) => (
-            <a key={n.id} href={`#${n.id}`} className="rounded-full px-2.5 py-2 text-sm font-medium text-ink hover:text-earth">
+            <a key={n.id} href={`#${n.id}`} className="rounded-full px-2 py-2 text-[13px] font-medium text-ink hover:text-earth">
               {n.label}
             </a>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden items-center gap-2 lg:flex">
           {switcher}
-          <a href="#support" className="btn-primary !px-5 !py-2">
+          <a href="#support" className="btn-primary !px-4 !py-2">
             <HeartHandshake className="h-4 w-4" /> {t.donate}
           </a>
         </div>
