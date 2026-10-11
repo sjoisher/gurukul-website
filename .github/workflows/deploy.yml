@@ -3,9 +3,9 @@ name: Deploy
 # Builds the static site and uploads out/ to the cPanel webroot over FTPS,
 # the same way the Brandscapes site deploys to this server.
 #
-# Manual only for now (Actions → Deploy → Run workflow). Add `push:
-# branches: [main]` once the first real deploy has gone green, so every
-# merge to main deploys itself.
+# Runs on every push to main, so a merged PR deploys itself. It can also be
+# run by hand from Actions → Deploy → Run workflow, where it is a dry run
+# unless dry_run is set to false.
 #
 # Required repository secrets (Settings → Secrets and variables → Actions):
 #   FTP_HOST      bh-20.webhostbox.net — the hostname, not the IP: the
@@ -15,6 +15,8 @@ name: Deploy
 #   FTP_PASSWORD
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
     inputs:
       server_dir:
@@ -65,7 +67,7 @@ jobs:
           local-dir: ./out/
           server-dir: ${{ github.event.inputs.server_dir || './' }}
           dangerous-clean-slate: false
-          dry-run: ${{ github.event.inputs.dry_run != 'false' }}
+          dry-run: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run != 'false' }}
           log-level: standard
           exclude: |
             **/.git*
@@ -76,7 +78,7 @@ jobs:
       # DNS may not point at the server yet, so ask the server directly for
       # vedicgurukul.com by its Host header rather than going through DNS.
       - name: Verify the deployed site on the server
-        if: ${{ github.event.inputs.dry_run == 'false' }}
+        if: ${{ github.event_name == 'push' || github.event.inputs.dry_run == 'false' }}
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
         run: |
