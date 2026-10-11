@@ -30,14 +30,16 @@ Options -Indexes
 
 AddType video/mp4 .mp4
 AddType image/svg+xml .svg
+AddType text/yaml .yml
 
 <IfModule mod_headers.c>
   Header always set X-Content-Type-Options "nosniff"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set X-Frame-Options "SAMEORIGIN"
 
-  # HTML and data files change every deploy: always revalidate.
-  <FilesMatch "\.(html|json|xml|txt)$">
+  # HTML and data files change every deploy: always revalidate. (.yml is the
+  # /admin editor's config.)
+  <FilesMatch "\.(html|json|xml|txt|yml)$">
     Header set Cache-Control "public, max-age=0, must-revalidate"
   </FilesMatch>
 
@@ -48,12 +50,13 @@ AddType image/svg+xml .svg
   </FilesMatch>
 </IfModule>
 
-# Next's build output under /_next/static/ is content-hashed: a changed file
+# Next's build output under /_next/static/, and the photo copies in
+# /images/generated/ (scripts/media.mjs), are content-hashed: a changed file
 # gets a new name, so it is safe to cache for a year. Set in
 # _next/static/.htaccess below would be cleaner, but Next empties that
 # directory on each build, so match on the path here instead.
 <IfModule mod_headers.c>
-  <If "%{REQUEST_URI} =~ m#^/_next/static/#">
+  <If "%{REQUEST_URI} =~ m#^/(_next/static|images/generated)/#">
     Header set Cache-Control "public, max-age=31536000, immutable"
   </If>
 </IfModule>

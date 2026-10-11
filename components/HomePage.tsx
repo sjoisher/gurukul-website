@@ -1,6 +1,7 @@
 import {
   ArrowRight,
   BookOpen,
+  CalendarDays,
   Clock,
   Cpu,
   Download,
@@ -24,7 +25,8 @@ import {
   Youtube,
 } from "lucide-react";
 import { dict, htmlLang, type Lang } from "@/lib/i18n";
-import { site, stemVideos, whatsappLink } from "@/lib/site";
+import { content, photo } from "@/lib/content";
+import { site, whatsappLink } from "@/lib/site";
 import { CopyButton } from "./CopyButton";
 import { Footer } from "./Footer";
 import { Gallery } from "./Gallery";
@@ -46,6 +48,12 @@ function Heading({ eyebrow, title, intro, center }: { eyebrow?: string; title: s
 
 export function HomePage({ lang }: { lang: Lang }) {
   const t = dict[lang];
+  const c = content(lang);
+  // Fixed photos outside the gallery, sized by scripts/media.mjs.
+  const img = (n: number, size: "sm" | "lg" = "sm") => {
+    const p = photo(`/photos/gallery/${n}.jpg`);
+    return { src: p[size], width: size === "sm" ? 600 : p.w, height: size === "sm" ? Math.round((600 * p.h) / p.w) : p.h };
+  };
   const tel = (n: string) => `tel:+91${n}`;
   const label = (id: string) => t.nav.find((n) => n.id === id)?.label;
 
@@ -58,7 +66,7 @@ export function HomePage({ lang }: { lang: Lang }) {
         <section className="relative isolate overflow-hidden bg-earth-dark text-white">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/images/gallery/14.jpg"
+            src={img(14, "lg").src}
             alt=""
             className="absolute inset-0 -z-10 h-full w-full object-cover opacity-45"
             fetchPriority="high"
@@ -86,7 +94,7 @@ export function HomePage({ lang }: { lang: Lang }) {
         {/* At a glance */}
         <section className="border-b border-sand bg-white">
           <dl className="container-page grid grid-cols-2 divide-sand py-8 lg:grid-cols-4 lg:divide-x">
-            {t.glance.map((g) => (
+            {c.glance.map((g) => (
               <div key={g.label} className="px-4 py-4 text-center">
                 <dt className="sr-only">{g.label}</dt>
                 <dd className="font-display text-3xl font-semibold text-earth sm:text-4xl">{g.value}</dd>
@@ -114,11 +122,11 @@ export function HomePage({ lang }: { lang: Lang }) {
             </div>
             <div className="grid grid-cols-2 gap-3">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/gallery/7-sm.jpg" alt={t.gallery.captions[6]} width={600} height={414} loading="lazy" className="col-span-2 h-60 w-full rounded-2xl object-cover sm:h-72" />
+              <img {...img(7)} alt={t.photoAlt.about[0]} loading="lazy" className="col-span-2 h-60 w-full rounded-2xl object-cover sm:h-72" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/gallery/5-sm.jpg" alt={t.gallery.captions[4]} width={600} height={450} loading="lazy" className="h-40 w-full rounded-2xl object-cover sm:h-48" />
+              <img {...img(5)} alt={t.photoAlt.about[1]} loading="lazy" className="h-40 w-full rounded-2xl object-cover sm:h-48" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/gallery/9-sm.jpg" alt={t.gallery.captions[8]} width={600} height={800} loading="lazy" className="h-40 w-full rounded-2xl object-cover sm:h-48" />
+              <img {...img(9)} alt={t.photoAlt.about[2]} loading="lazy" className="h-40 w-full rounded-2xl object-cover sm:h-48" />
             </div>
           </div>
         </section>
@@ -204,7 +212,7 @@ export function HomePage({ lang }: { lang: Lang }) {
                   ))}
                 </ul>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/gallery/20-sm.jpg" alt={t.gallery.captions[19]} width={600} height={338} loading="lazy" className="mt-6 h-40 w-full rounded-xl object-cover" />
+                <img {...img(20)} alt={t.photoAlt.vision} loading="lazy" className="mt-6 h-40 w-full rounded-xl object-cover" />
               </div>
             </div>
 
@@ -257,23 +265,23 @@ export function HomePage({ lang }: { lang: Lang }) {
               </ul>
             </div>
             <ul className="-mx-4 mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 lg:grid-cols-4 xl:grid-cols-5">
-              {stemVideos.map((v, i) => (
-                <li key={v.n} className="w-[62vw] max-w-[260px] shrink-0 snap-start sm:w-auto sm:max-w-none">
+              {c.stem.map((v) => (
+                <li key={v.video} className="w-[62vw] max-w-[260px] shrink-0 snap-start sm:w-auto sm:max-w-none">
                   <figure>
                     <video
                       controls
                       playsInline
                       preload="none"
-                      poster={`/videos/stem-${v.n}.jpg`}
+                      poster={v.poster}
                       width={478}
                       height={850}
                       className="aspect-[9/16] w-full rounded-2xl bg-ink object-cover"
-                      aria-label={t.stem.captions[i]}
+                      aria-label={v.caption}
                     >
-                      <source src={`/videos/stem-${v.n}.mp4`} type="video/mp4" />
+                      <source src={v.video} type="video/mp4" />
                     </video>
                     <figcaption className="mt-2 text-sm leading-snug text-muted">
-                      {t.stem.captions[i]} <span className="text-muted/60">· {v.seconds}s</span>
+                      {v.caption} {v.seconds && <span className="text-muted/60">· {v.seconds}s</span>}
                     </figcaption>
                   </figure>
                 </li>
@@ -353,7 +361,7 @@ export function HomePage({ lang }: { lang: Lang }) {
           <div className="container-page">
             <Heading title={t.teachers.heading} intro={t.teachers.intro} />
             <ul className="mt-10 grid gap-6 md:grid-cols-3">
-              {t.teachers.people.map((p) => (
+              {c.teachers.map((p) => (
                 <li key={p.name} className="flex gap-4 rounded-2xl bg-parchment p-6">
                   <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-saffron-light text-earth">
                     <BookOpen className="h-5 w-5" />
@@ -378,7 +386,7 @@ export function HomePage({ lang }: { lang: Lang }) {
               </a>
             </div>
             <div className="mt-10">
-              <Gallery captions={t.gallery.captions} labels={t.gallery} />
+              <Gallery photos={c.gallery} labels={t.gallery} />
             </div>
           </div>
         </section>
@@ -438,6 +446,47 @@ export function HomePage({ lang }: { lang: Lang }) {
           </div>
         </section>
 
+        {/* News & Events — edited at /admin */}
+        {c.news.length > 0 && (
+          <section id="news" className="section border-b border-sand bg-white">
+            <div className="container-page">
+              <Heading title={t.news.heading} intro={t.news.intro} />
+              <ul className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {c.news.slice(0, 6).map((n) => (
+                  <li key={n.date + n.title} className="flex flex-col overflow-hidden rounded-2xl bg-parchment">
+                    {n.image && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={n.image.sm}
+                        alt=""
+                        width={600}
+                        height={Math.round((600 * n.image.h) / n.image.w)}
+                        loading="lazy"
+                        className="h-48 w-full object-cover"
+                      />
+                    )}
+                    <div className="flex flex-1 flex-col p-6">
+                      <time dateTime={n.date} className="flex items-center gap-1.5 text-xs font-semibold text-muted">
+                        <CalendarDays className="h-3.5 w-3.5" />
+                        {new Date(`${n.date}T00:00:00Z`).toLocaleDateString(htmlLang[lang], { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })}
+                      </time>
+                      <h3 className="mt-2 font-display text-lg font-semibold">{n.title}</h3>
+                      {n.body.split(/\n\s*\n/).map((para, i) => (
+                        <p key={i} className="mt-2 whitespace-pre-line text-sm leading-relaxed text-muted">{para}</p>
+                      ))}
+                      {n.link && (
+                        <a href={n.link} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-earth hover:underline">
+                          {t.news.more} <ExternalLink className="h-3.5 w-3.5" />
+                        </a>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
+
         {/* Trust */}
         <section id="trust" className="section">
           <div className="container-page">
@@ -465,7 +514,7 @@ export function HomePage({ lang }: { lang: Lang }) {
               <div className="card p-7">
                 <h3 className="font-display text-xl font-semibold">{t.trust.trusteesHeading}</h3>
                 <ol className="mt-5 space-y-2.5">
-                  {t.trust.trustees.map((name, i) => (
+                  {c.trustees.map((name, i) => (
                     <li key={name} className="flex flex-wrap items-baseline gap-x-3 text-sm">
                       <span className="w-5 shrink-0 font-semibold text-earth">{i + 1}.</span>
                       <span className="font-medium">{name}</span>
@@ -500,7 +549,7 @@ export function HomePage({ lang }: { lang: Lang }) {
                 </ol>
                 <div className="mt-6 flex flex-wrap items-baseline justify-between gap-3 rounded-xl bg-saffron px-5 py-4 text-white">
                   <span className="text-sm font-semibold uppercase tracking-wider">{t.future.totalLabel}</span>
-                  <span className="font-display text-3xl font-semibold">{t.future.total}</span>
+                  <span className="font-display text-3xl font-semibold">{c.csr.total}</span>
                 </div>
               </div>
               <div className="rounded-2xl bg-white/5 p-7 ring-1 ring-white/10">
@@ -527,7 +576,7 @@ export function HomePage({ lang }: { lang: Lang }) {
                 </ul>
               </div>
               <dl className="grid content-start gap-3">
-                {t.future.centreFacts.map((f) => (
+                {c.csr.centreFacts.map((f) => (
                   <div key={f.label} className="rounded-xl bg-parchment px-5 py-4">
                     <dt className="text-xs font-semibold uppercase tracking-wider text-muted">{f.label}</dt>
                     <dd className="mt-1 font-display text-2xl font-semibold text-earth">{f.value}</dd>
@@ -538,7 +587,7 @@ export function HomePage({ lang }: { lang: Lang }) {
 
             <h3 className="mt-14 font-display text-2xl font-semibold">{t.future.levelsHeading}</h3>
             <ul className="mt-6 grid gap-4 md:grid-cols-3">
-              {t.future.levels.map((l) => (
+              {c.csr.levels.map((l) => (
                 <li key={l.title} className="rounded-2xl bg-white/5 p-6 text-center ring-1 ring-white/10">
                   <p className="font-display text-lg font-semibold">{l.title}</p>
                   <p className="mx-auto mt-3 w-fit rounded-lg bg-saffron-light px-4 py-1.5 font-display text-2xl font-semibold text-earth">{l.amount}</p>
@@ -567,7 +616,7 @@ export function HomePage({ lang }: { lang: Lang }) {
                 <h3 className="font-display text-xl font-semibold">{t.support.qrHeading}</h3>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/images/donation-qr.png" alt={t.support.qrHeading} width={950} height={690} loading="lazy" className="mt-5 w-full max-w-[280px] rounded-lg" />
-                <p className="mt-4 text-sm text-muted">{t.support.qrNote}</p>
+                <p className="mt-4 text-sm text-muted">{t.support.qrNote.replace("{phone}", site.phone)}</p>
               </div>
               <div className="card p-7">
                 <h3 className="flex items-center gap-2 font-display text-xl font-semibold">
@@ -575,8 +624,8 @@ export function HomePage({ lang }: { lang: Lang }) {
                 </h3>
                 <dl className="mt-5 divide-y divide-sand">
                   {[
-                    { label: t.support.bankLabel, value: t.support.bankName },
-                    { label: t.support.accountNameLabel, value: t.support.accountName },
+                    { label: t.support.bankLabel, value: c.bank.name },
+                    { label: t.support.accountNameLabel, value: c.bank.accountName },
                     { label: t.support.accountNumberLabel, value: site.bank.accountNumber, copy: true },
                     { label: t.support.ifscLabel, value: site.bank.ifsc, copy: true },
                   ].map((row) => (
@@ -615,7 +664,7 @@ export function HomePage({ lang }: { lang: Lang }) {
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-wider text-muted">{t.contact.addressLabel}</p>
                     <address className="mt-1 not-italic">
-                      {t.contact.address.map((line) => (
+                      {c.address.map((line) => (
                         <span key={line} className="block">{line}</span>
                       ))}
                     </address>

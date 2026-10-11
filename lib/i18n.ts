@@ -1,4 +1,8 @@
-// All page copy, in English, Hindi and Gujarati.
+// Page copy, in English, Hindi and Gujarati.
+//
+// Content that changes from time to time (numbers, teachers, trustees, gallery,
+// videos, CSR figures, contact details, news) lives in content/*.json instead,
+// where it can be edited at /admin. See lib/content.ts.
 //
 // Text carried over from the original site is kept word for word, apart from
 // three script slips fixed in passing (a Gujarati word inside the Hindi
@@ -25,10 +29,9 @@ export type Dict = {
   donate: string;
   menu: { open: string; close: string };
   hero: { slogan: string; subSlogan: string; tagline: string; intro: string; ctaVisit: string; ctaSupport: string };
-  glance: { value: string; label: string }[];
   about: { heading: string; body: string; infraHeading: string; infra: string[] };
   parampara: { heading: string; intro: string; people: { name: string; note: string }[] };
-  teachers: { heading: string; intro: string; people: { name: string; note: string }[] };
+  teachers: { heading: string; intro: string };
   vision: {
     heading: string;
     statement: string;
@@ -63,7 +66,9 @@ export type Dict = {
     sports: { day: string; sport: string }[];
     pdf: string;
   };
-  gallery: { heading: string; intro: string; more: string; close: string; prev: string; next: string; captions: string[] };
+  gallery: { heading: string; intro: string; more: string; close: string; prev: string; next: string };
+  photoAlt: { about: string[]; vision: string };
+  news: { heading: string; intro: string; more: string };
   video: { heading: string; intro: string; play: string };
   support: {
     heading: string;
@@ -72,9 +77,7 @@ export type Dict = {
     qrNote: string;
     bankHeading: string;
     bankLabel: string;
-    bankName: string;
     accountNameLabel: string;
-    accountName: string;
     accountNumberLabel: string;
     ifscLabel: string;
     copy: string;
@@ -93,9 +96,8 @@ export type Dict = {
     objectives: string[];
     trusteesHeading: string;
     founderRole: string;
-    trustees: string[];
   };
-  stem: { heading: string; intro: string; highlights: string[]; captions: string[] };
+  stem: { heading: string; intro: string; highlights: string[] };
   media: { heading: string; intro: string; live: string; reel: string; watchYoutube: string; watchInstagram: string };
   future: {
     heading: string;
@@ -106,13 +108,10 @@ export type Dict = {
     themesHeading: string;
     themes: string[];
     totalLabel: string;
-    total: string;
     centreHeading: string;
     centreIntro: string;
     centreItems: string[];
-    centreFacts: { label: string; value: string }[];
     levelsHeading: string;
-    levels: { title: string; amount: string; text: string }[];
     levelsNote: string;
     cta: string;
   };
@@ -120,7 +119,6 @@ export type Dict = {
   contact: {
     heading: string;
     addressLabel: string;
-    address: string[];
     phoneLabel: string;
     emailLabel: string;
     call: string;
@@ -182,14 +180,6 @@ const en: Dict = {
     ctaVisit: "Visit or enquire",
     ctaSupport: "Support the Gurukul",
   },
-  // NEW — figures taken from the Dinacharya PDF
-  // From the CSR presentation and the Trust letterhead
-  glance: [
-    { value: "45", label: "Students today" },
-    { value: "6", label: "Teachers & acharyas" },
-    { value: "20 years", label: "of the Gurukul's educational work" },
-    { value: "1993", label: "Trust established" },
-  ],
   about: {
     heading: "About the Gurukul",
     body: "Sant Shri Odhavram Vaidic Gurukul, Bhavanipar, is dedicated to the creation of character-driven and capable brahmacharis through Vedic education combined with modern learning, discipline, and cultural values. The Gurukul follows the traditional Gurukulam system where learning is integrated with daily life, service, and spiritual practice.",
@@ -209,15 +199,9 @@ const en: Dict = {
       { name: "Shri Nityanand Shivanand Saraswati", note: "Founder of the Gurukul" },
     ],
   },
-  // NEW — names and duties taken from the Dinacharya PDF
   teachers: {
     heading: "Our teachers",
     intro: "From morning prayer to evening sandhya, the brahmacharis' day is guided by their teachers.",
-    people: [
-      { name: "Acharya Gaurav Arya", note: "Morning prayer, havan, shramdaan and sports" },
-      { name: "Upacharya Vivek Shastri", note: "Exercise and pranayama, classes and evening sandhya" },
-      { name: "Adhyapak Sagar Arya", note: "Breakfast, meals and the evening walk" },
-    ],
   },
   vision: {
     heading: "Our Vision",
@@ -337,41 +321,22 @@ const en: Dict = {
     close: "Close",
     prev: "Previous photo",
     next: "Next photo",
-    // NEW
-    captions: [
-      "Independence Day assembly",
-      "A human pyramid by the brahmacharis",
-      "With visiting schoolchildren",
-      "Class in the open pavilion",
-      "Music practice in the pavilion",
-      "Mealtime in the dining hall",
-      "Mantra recitation in the hall",
-      "A lesson on the night sky",
-      "Stargazing through a telescope",
-      "Brahmacharis with their new books",
-      "With their new books",
-      "Visit to a wrestling akhada",
-      "Meeting wrestlers at the akhada",
-      "The Gurukul family at the pavilion",
-      "An outing in the countryside",
-      "Republic Day flag hoisting",
-      "Republic Day: assembly in formation",
-      "Republic Day: salute to the flag",
-      "Republic Day celebrations",
-      "A mural on the campus walls",
-    ],
   },
+  photoAlt: {
+    about: ["Mantra recitation in the hall", "Music practice in the pavilion", "Stargazing through a telescope"],
+    vision: "A mural on the campus walls",
+  },
+  // NEW
+  news: { heading: "News & Events", intro: "What's happening at the Gurukul.", more: "Read more" },
   video: { heading: "Gurukul Video", intro: "A glimpse of life at the Gurukul.", play: "Play video" },
   support: {
     heading: "Support & Donations",
     intro: "Your support strengthens the Gurukul’s educational, spiritual, and ecological initiatives.",
     qrHeading: "Donate via QR",
-    qrNote: "Scan with any UPI app. You can also send by UPI to 8305209795.",
+    qrNote: "Scan with any UPI app. You can also send by UPI to {phone}.",
     bankHeading: "Bank Details",
     bankLabel: "Bank",
-    bankName: "Jankalyan Sahakari Bank Ltd",
     accountNameLabel: "Account Name",
-    accountName: "Shree Nityanand Shivanand Saraswati Yog",
     accountNumberLabel: "Account Number",
     ifscLabel: "IFSC Code",
     copy: "Copy",
@@ -382,7 +347,6 @@ const en: Dict = {
     acknowledgeMessage: "Namaste. I have made a donation to the Gurukul. Details:",
   },
   // NEW
-  // From the Trust letterhead (trustee list)
   motto: "Sanskriti · Sanskrit · Sanskar",
   trust: {
     heading: "The Trust",
@@ -409,40 +373,12 @@ const en: Dict = {
     ],
     trusteesHeading: "Trustees",
     founderRole: "Founder Trustee",
-    trustees: [
-      "Shri Bhailal Lakhamshi Mange (Mangalbhai)",
-      "Shri Shankarlal Devji Bhanushali",
-      "Shri Shankarlal Lakhamshi Joisher",
-      "Shri Mathuradas Monji Bhanushali",
-      "Shri Mathurabhai Paragji Joisher",
-      "Shri Suresh Hansraj Dama",
-      "Shri Vadilal Parbat Pokar",
-      "Shri Jagdish Ishwarlal Kesrani",
-      "Shri Amrutkumar Kanji Dama",
-      "Shri Premal Pratap Joisher",
-      "Shri Vishal Mahindra Gada",
-    ],
   },
   // NEW — from the Gurukul's WhatsApp videos
   stem: {
     heading: "Science, technology & robotics",
     intro: "Alongside the Vedas, the brahmacharis design, wire and code their own projects in the computer lab and out on the grounds.",
     highlights: ["Arduino circuits and sensors", "Smart walking stick for the visually impaired", "Automatic plant watering", "Robot car and drone"],
-    captions: [
-      "A smart walking stick for the visually impaired",
-      "Flying a drone on the grounds",
-      "Programming in the computer lab",
-      "A smart house model",
-      "Building circuits with an Arduino",
-      "Testing a water sensor",
-      "An automatic plant-watering system",
-      "Programming an LCD display",
-      "A class in the computer lab",
-      "Driving a robot car from a tablet",
-      "A hand-gesture sensor project",
-      "Presenting the smart stick",
-      "Learning together at the computer",
-    ],
   },
   media: {
     heading: "In the media & live",
@@ -462,21 +398,10 @@ const en: Dict = {
     themesHeading: "CSR investment themes",
     themes: ["Campus & core infrastructure", "Education & Centres of Excellence", "Digital Gurukul", "Living & self-reliance", "Sports, culture & wellness", "Green & sustainable Gurukul"],
     totalLabel: "Total CSR requirement",
-    total: "₹1.80 crore",
     centreHeading: "Robotics, AI & Innovation Centre",
     centreIntro: "From learning technology to creating technology. A Centre of Excellence for hands-on work in robotics and new technology.",
     centreItems: ["Robotics workstations", "Arduino & IoT kits", "AI learning tools", "Drone technology", "3D printing", "Coding & programming zone", "Student innovation & project display", "Digital teaching infrastructure"],
-    centreFacts: [
-      { label: "Total project cost", value: "₹30 lakh" },
-      { label: "CSR contribution requested", value: "₹9 lakh per year" },
-      { label: "Students benefited annually", value: "75" },
-    ],
     levelsHeading: "How you can help",
-    levels: [
-      { title: "Support a component", amount: "₹25 lakh+", text: "Support a specific infrastructure or equipment component." },
-      { title: "Sponsor a facility", amount: "₹50 lakh+", text: "Help create an identifiable educational facility." },
-      { title: "Become a transformational partner", amount: "₹1 crore+", text: "Support a major campus development programme." },
-    ],
     levelsNote: "Sponsorship levels are illustrative and subject to Trust approval. CSR partnerships can also be structured around specific projects, facilities, equipment or campus zones.",
     cta: "Talk to us about CSR partnership",
   },
@@ -490,7 +415,6 @@ const en: Dict = {
   contact: {
     heading: "Contact Us",
     addressLabel: "Address",
-    address: ["Sant Shri Odhavram Vaidic Gurukul,", "Bhavanipar, Taluka Abdasa,", "District Kutch (Bhuj), Gujarat – 370650"],
     phoneLabel: "Phone / UPI",
     emailLabel: "Email",
     call: "Call",
@@ -531,13 +455,6 @@ const hi: Dict = {
     ctaVisit: "भ्रमण या पूछताछ",
     ctaSupport: "गुरुकुल को सहयोग दें",
   },
-  // From the CSR presentation and the Trust letterhead
-  glance: [
-    { value: "45", label: "वर्तमान विद्यार्थी" },
-    { value: "6", label: "शिक्षक एवं आचार्य" },
-    { value: "20 वर्ष", label: "गुरुकुल का शैक्षणिक कार्य" },
-    { value: "1993", label: "ट्रस्ट की स्थापना" },
-  ],
   about: {
     heading: "गुरुकुल परिचय",
     body: "संत श्री ओधवराम वैदिक गुरुकुल, भवानीपर, वैदिक शिक्षा को आधुनिक शिक्षा, अनुशासन और सांस्कृतिक मूल्यों के साथ जोड़कर चरित्रवान और सक्षम ब्रह्मचारियों के निर्माण के लिए समर्पित है। यह गुरुकुल पारंपरिक गुरुकुलम प्रणाली का अनुसरण करता है, जहाँ शिक्षा दैनिक जीवन, सेवा और आध्यात्मिक साधना के साथ एकीकृत होती है।",
@@ -558,11 +475,6 @@ const hi: Dict = {
   teachers: {
     heading: "हमारे आचार्य",
     intro: "प्रातः प्रार्थना से सायं संध्या तक ब्रह्मचारियों की दिनचर्या का मार्गदर्शन उनके आचार्य करते हैं।",
-    people: [
-      { name: "आचार्य गौरव आर्य", note: "प्रातः प्रार्थना, हवन, श्रमदान और खेल" },
-      { name: "उपाचार्य विवेक शास्त्री", note: "व्यायाम-प्राणायाम, कक्षाएँ और सायं संध्या" },
-      { name: "अध्यापक सागर आर्य", note: "प्रातराश, भोजन और भ्रमण" },
-    ],
   },
   vision: {
     heading: "हमारी दृष्टि",
@@ -682,40 +594,21 @@ const hi: Dict = {
     close: "बंद करें",
     prev: "पिछला चित्र",
     next: "अगला चित्र",
-    captions: [
-      "स्वतंत्रता दिवस सभा",
-      "ब्रह्मचारियों द्वारा मानव पिरामिड",
-      "अतिथि विद्यालय के बच्चों के साथ",
-      "खुले मंडप में कक्षा",
-      "मंडप में संगीत अभ्यास",
-      "भोजनालय में भोजन",
-      "सभागार में मंत्र पाठ",
-      "रात्रि आकाश पर एक पाठ",
-      "दूरबीन से तारों का अवलोकन",
-      "नई पुस्तकों के साथ ब्रह्मचारी",
-      "अपनी नई पुस्तकों के साथ",
-      "कुश्ती अखाड़े का भ्रमण",
-      "अखाड़े में पहलवानों से भेंट",
-      "मंडप पर गुरुकुल परिवार",
-      "ग्रामीण क्षेत्र में भ्रमण",
-      "गणतंत्र दिवस ध्वजारोहण",
-      "गणतंत्र दिवस: पंक्तिबद्ध सभा",
-      "गणतंत्र दिवस: ध्वज को वंदन",
-      "गणतंत्र दिवस समारोह",
-      "परिसर की दीवार पर भित्तिचित्र",
-    ],
   },
+  photoAlt: {
+    about: ["सभागार में मंत्र पाठ", "मंडप में संगीत अभ्यास", "दूरबीन से तारों का अवलोकन"],
+    vision: "परिसर की दीवार पर भित्तिचित्र",
+  },
+  news: { heading: "समाचार एवं कार्यक्रम", intro: "गुरुकुल में क्या हो रहा है।", more: "और पढ़ें" },
   video: { heading: "गुरुकुल वीडियो", intro: "गुरुकुल जीवन की एक झलक।", play: "वीडियो चलाएँ" },
   support: {
     heading: "सहयोग और दान",
     intro: "आपका सहयोग गुरुकुल की शैक्षणिक, आध्यात्मिक और पर्यावरणीय पहलों को सशक्त बनाता है।",
     qrHeading: "क्यूआर द्वारा दान",
-    qrNote: "किसी भी यूपीआई ऐप से स्कैन करें। आप 8305209795 पर यूपीआई द्वारा भी भेज सकते हैं।",
+    qrNote: "किसी भी यूपीआई ऐप से स्कैन करें। आप {phone} पर यूपीआई द्वारा भी भेज सकते हैं।",
     bankHeading: "बैंक विवरण",
     bankLabel: "बैंक",
-    bankName: "जनकल्याण सहकारी बैंक लिमिटेड",
     accountNameLabel: "खाता नाम",
-    accountName: "श्री नित्यानंद शिवानंद सरस्वती योग",
     accountNumberLabel: "खाता संख्या",
     ifscLabel: "आईएफएससी कोड",
     copy: "कॉपी करें",
@@ -725,7 +618,6 @@ const hi: Dict = {
     acknowledgeCta: "व्हाट्सएप पर विवरण भेजें",
     acknowledgeMessage: "नमस्ते। मैंने गुरुकुल को दान किया है। विवरण:",
   },
-  // From the Trust letterhead (trustee list)
   motto: "संस्कृति, संस्कृत, संस्कार",
   trust: {
     heading: "ट्रस्ट",
@@ -752,40 +644,12 @@ const hi: Dict = {
     ],
     trusteesHeading: "ट्रस्टीगण",
     founderRole: "फाउंडर ट्रस्टी",
-    trustees: [
-      "श्री भाईलाल लखमशी मंगे (मंगलभाई)",
-      "श्री शंकरलाल देवजी भानुशाली",
-      "श्री शंकरलाल लखमशी जोईसर",
-      "श्री मथुरादास मोनजी भानुशाली",
-      "श्री मथुराभाई परागजी जोईसर",
-      "श्री सुरेश हंसराज दामा",
-      "श्री वाडीलाल परबत पोकार",
-      "श्री जगदीश ईश्वरलाल केसराणी",
-      "श्री अमृतकुमार कानजी दामा",
-      "श्री प्रेमल प्रताप जोईसर",
-      "श्री विशाल महिंद्र गडा",
-    ],
   },
   // NEW — from the Gurukul's WhatsApp videos
   stem: {
     heading: "विज्ञान, तकनीक एवं रोबोटिक्स",
     intro: "वेदों के साथ-साथ ब्रह्मचारी कम्प्यूटर कक्ष और मैदान में अपने स्वयं के प्रोजेक्ट बनाते, जोड़ते और प्रोग्राम करते हैं।",
     highlights: ["आर्डुइनो सर्किट और सेंसर", "दृष्टिबाधितों के लिए स्मार्ट छड़ी", "स्वचालित पौध सिंचाई", "रोबोट कार और ड्रोन"],
-    captions: [
-      "दृष्टिबाधितों के लिए स्मार्ट छड़ी",
-      "मैदान में ड्रोन उड़ाते हुए",
-      "कम्प्यूटर कक्ष में प्रोग्रामिंग",
-      "स्मार्ट घर का मॉडल",
-      "आर्डुइनो से सर्किट बनाते हुए",
-      "जल सेंसर का परीक्षण",
-      "स्वचालित पौध सिंचाई प्रणाली",
-      "एलसीडी डिस्प्ले की प्रोग्रामिंग",
-      "कम्प्यूटर कक्ष में कक्षा",
-      "टैबलेट से रोबोट कार चलाते हुए",
-      "हाथ के इशारे से चलने वाला सेंसर प्रोजेक्ट",
-      "स्मार्ट छड़ी की प्रस्तुति",
-      "कम्प्यूटर पर मिलकर सीखते हुए",
-    ],
   },
   media: {
     heading: "मीडिया एवं लाइव",
@@ -805,21 +669,10 @@ const hi: Dict = {
     themesHeading: "सीएसआर निवेश के क्षेत्र",
     themes: ["परिसर एवं मूल अवसंरचना", "शिक्षा एवं उत्कृष्टता केंद्र", "डिजिटल गुरुकुल", "जीवन एवं आत्मनिर्भरता", "खेल, संस्कृति एवं स्वास्थ्य", "हरित एवं सतत गुरुकुल"],
     totalLabel: "कुल सीएसआर आवश्यकता",
-    total: "₹1.80 करोड़",
     centreHeading: "रोबोटिक्स, एआई एवं नवाचार केंद्र",
     centreIntro: "तकनीक सीखने से तकनीक रचने तक। रोबोटिक्स और नई तकनीक में प्रत्यक्ष कार्य के लिए एक उत्कृष्टता केंद्र।",
     centreItems: ["रोबोटिक्स वर्कस्टेशन", "आर्डुइनो एवं आईओटी किट", "एआई शिक्षण उपकरण", "ड्रोन तकनीक", "3D प्रिंटिंग", "कोडिंग एवं प्रोग्रामिंग क्षेत्र", "विद्यार्थी नवाचार एवं प्रोजेक्ट प्रदर्शन", "डिजिटल शिक्षण व्यवस्था"],
-    centreFacts: [
-      { label: "कुल परियोजना लागत", value: "₹30 लाख" },
-      { label: "अपेक्षित सीएसआर योगदान", value: "₹9 लाख प्रति वर्ष" },
-      { label: "प्रति वर्ष लाभान्वित विद्यार्थी", value: "75" },
-    ],
     levelsHeading: "आप कैसे सहयोग कर सकते हैं",
-    levels: [
-      { title: "एक घटक में सहयोग", amount: "₹25 लाख+", text: "किसी विशेष अवसंरचना या उपकरण में सहयोग करें।" },
-      { title: "एक सुविधा प्रायोजित करें", amount: "₹50 लाख+", text: "एक पहचान योग्य शैक्षणिक सुविधा के निर्माण में सहायता करें।" },
-      { title: "परिवर्तनकारी सहभागी बनें", amount: "₹1 करोड़+", text: "परिसर विकास के एक बड़े कार्यक्रम में सहयोग करें।" },
-    ],
     levelsNote: "प्रायोजन स्तर उदाहरण मात्र हैं और ट्रस्ट की स्वीकृति के अधीन हैं। सीएसआर साझेदारी किसी विशेष परियोजना, सुविधा, उपकरण या परिसर क्षेत्र के अनुसार भी तय की जा सकती है।",
     cta: "सीएसआर साझेदारी के लिए संपर्क करें",
   },
@@ -833,7 +686,6 @@ const hi: Dict = {
   contact: {
     heading: "संपर्क करें",
     addressLabel: "पता",
-    address: ["संत श्री ओधवराम वैदिक गुरुकुल,", "भवानीपर, तालुका अबडासा,", "जिला कच्छ (भुज), गुजरात – 370650"],
     phoneLabel: "फोन / यूपीआई",
     emailLabel: "ईमेल",
     call: "कॉल करें",
@@ -874,13 +726,6 @@ const gu: Dict = {
     ctaVisit: "મુલાકાત અથવા પૂછપરછ",
     ctaSupport: "ગુરુકુલને સહયોગ આપો",
   },
-  // From the CSR presentation and the Trust letterhead
-  glance: [
-    { value: "45", label: "હાલના વિદ્યાર્થીઓ" },
-    { value: "6", label: "શિક્ષકો અને આચાર્યો" },
-    { value: "20 વર્ષ", label: "ગુરુકુલનું શૈક્ષણિક કાર્ય" },
-    { value: "1993", label: "ટ્રસ્ટની સ્થાપના" },
-  ],
   about: {
     heading: "ગુરુકુલ વિશે",
     body: "સંત શ્રી ઓધવરામ વૈદિક ગુરુકુલ, ભવાનીપર, વૈદિક શિક્ષણને આધુનિક અભ્યાસ, શિસ્ત અને સાંસ્કૃતિક મૂલ્યો સાથે જોડીને ચરિત્રવાન અને સક્ષમ બ્રહ્મચારીઓના નિર્માણ માટે સમર્પિત છે. ગુરુકુલ પરંપરાગત ગુરુકુલમ પદ્ધતિનું પાલન કરે છે, જ્યાં અભ્યાસ દૈનિક જીવન, સેવા અને આધ્યાત્મિક સાધના સાથે એકરૂપ બને છે.",
@@ -901,11 +746,6 @@ const gu: Dict = {
   teachers: {
     heading: "અમારા આચાર્યો",
     intro: "સવારની પ્રાર્થનાથી સાંજની સંધ્યા સુધી બ્રહ્મચારીઓની દિનચર્યાનું માર્ગદર્શન તેમના આચાર્યો કરે છે.",
-    people: [
-      { name: "આચાર્ય ગૌરવ આર્ય", note: "પ્રાતઃ પ્રાર્થના, હવન, શ્રમદાન અને રમતગમત" },
-      { name: "ઉપાચાર્ય વિવેક શાસ્ત્રી", note: "વ્યાયામ-પ્રાણાયામ, વર્ગો અને સાંજની સંધ્યા" },
-      { name: "અધ્યાપક સાગર આર્ય", note: "પ્રાતરાશ, ભોજન અને ભ્રમણ" },
-    ],
   },
   vision: {
     heading: "અમારું દ્રષ્ટિવાક્ય",
@@ -1024,40 +864,21 @@ const gu: Dict = {
     close: "બંધ કરો",
     prev: "પાછલો ફોટો",
     next: "આગલો ફોટો",
-    captions: [
-      "સ્વાતંત્ર્ય દિન સભા",
-      "બ્રહ્મચારીઓ દ્વારા માનવ પિરામિડ",
-      "મુલાકાતે આવેલા શાળાના બાળકો સાથે",
-      "ખુલ્લા મંડપમાં વર્ગ",
-      "મંડપમાં સંગીત અભ્યાસ",
-      "ભોજનશાળામાં ભોજન",
-      "સભાખંડમાં મંત્રપાઠ",
-      "રાત્રિ આકાશ વિશે પાઠ",
-      "દૂરબીનથી તારાદર્શન",
-      "નવા પુસ્તકો સાથે બ્રહ્મચારીઓ",
-      "પોતાના નવા પુસ્તકો સાથે",
-      "કુસ્તી અખાડાની મુલાકાત",
-      "અખાડામાં પહેલવાનો સાથે મુલાકાત",
-      "મંડપ પાસે ગુરુકુલ પરિવાર",
-      "ગ્રામ્ય વિસ્તારમાં પ્રવાસ",
-      "પ્રજાસત્તાક દિન ધ્વજવંદન",
-      "પ્રજાસત્તાક દિન: હરોળબદ્ધ સભા",
-      "પ્રજાસત્તાક દિન: ધ્વજને વંદન",
-      "પ્રજાસત્તાક દિન ઉજવણી",
-      "પરિસરની દીવાલ પર ભીંતચિત્ર",
-    ],
   },
+  photoAlt: {
+    about: ["સભાખંડમાં મંત્રપાઠ", "મંડપમાં સંગીત અભ્યાસ", "દૂરબીનથી તારાદર્શન"],
+    vision: "પરિસરની દીવાલ પર ભીંતચિત્ર",
+  },
+  news: { heading: "સમાચાર અને કાર્યક્રમો", intro: "ગુરુકુલમાં શું ચાલી રહ્યું છે.", more: "વધુ વાંચો" },
   video: { heading: "ગુરુકુલ વીડિયો", intro: "ગુરુકુલ જીવનની એક ઝલક.", play: "વીડિયો ચલાવો" },
   support: {
     heading: "સહયોગ અને દાન",
     intro: "તમારો સહયોગ ગુરુકુલના શૈક્ષણિક, આધ્યાત્મિક અને પર્યાવરણીય કાર્યોને વધુ સશક્ત બનાવે છે.",
     qrHeading: "ક્યુઆર દ્વારા દાન",
-    qrNote: "કોઈપણ યુપીઆઈ એપથી સ્કેન કરો. તમે 8305209795 પર યુપીઆઈ દ્વારા પણ મોકલી શકો છો.",
+    qrNote: "કોઈપણ યુપીઆઈ એપથી સ્કેન કરો. તમે {phone} પર યુપીઆઈ દ્વારા પણ મોકલી શકો છો.",
     bankHeading: "બેંક વિગતો",
     bankLabel: "બેંક",
-    bankName: "જનકલ્યાણ સહકારી બેંક લિમિટેડ",
     accountNameLabel: "ખાતાનું નામ",
-    accountName: "શ્રી નિત્યાનંદ શિવાનંદ સરસ્વતી યોગ",
     accountNumberLabel: "ખાતા નંબર",
     ifscLabel: "આઇએફએસસી કોડ",
     copy: "કૉપિ કરો",
@@ -1067,7 +888,6 @@ const gu: Dict = {
     acknowledgeCta: "વોટ્સએપ પર વિગતો મોકલો",
     acknowledgeMessage: "નમસ્તે. મેં ગુરુકુલને દાન આપ્યું છે. વિગતો:",
   },
-  // From the Trust letterhead (trustee list)
   motto: "સંસ્કૃતિ, સંસ્કૃત, સંસ્કાર",
   trust: {
     heading: "ટ્રસ્ટ",
@@ -1094,40 +914,12 @@ const gu: Dict = {
     ],
     trusteesHeading: "ટ્રસ્ટીગણ",
     founderRole: "સ્થાપક ટ્રસ્ટી",
-    trustees: [
-      "શ્રી ભાઈલાલ લખમશી મંગે (મંગળભાઈ)",
-      "શ્રી શંકરલાલ દેવજી ભાનુશાળી",
-      "શ્રી શંકરલાલ લખમશી જોઈસર",
-      "શ્રી મથુરાદાસ મોનજી ભાનુશાળી",
-      "શ્રી મથુરાભાઈ પરાગજી જોઈસર",
-      "શ્રી સુરેશ હંસરાજ દામા",
-      "શ્રી વાડીલાલ પરબત પોકાર",
-      "શ્રી જગદીશ ઈશ્વરલાલ કેસરાણી",
-      "શ્રી અમૃતકુમાર કાનજી દામા",
-      "શ્રી પ્રેમલ પ્રતાપ જોઈસર",
-      "શ્રી વિશાલ મહિન્દ્ર ગડા",
-    ],
   },
   // NEW — from the Gurukul's WhatsApp videos
   stem: {
     heading: "વિજ્ઞાન, ટેકનોલોજી અને રોબોટિક્સ",
     intro: "વેદોની સાથે સાથે બ્રહ્મચારીઓ કમ્પ્યુટર ખંડમાં અને મેદાનમાં પોતાના પ્રોજેક્ટ બનાવે છે, જોડે છે અને પ્રોગ્રામ કરે છે.",
     highlights: ["આર્ડુઇનો સર્કિટ અને સેન્સર", "દૃષ્ટિહીનો માટે સ્માર્ટ લાકડી", "સ્વયંચાલિત છોડ સિંચાઈ", "રોબોટ કાર અને ડ્રોન"],
-    captions: [
-      "દૃષ્ટિહીનો માટે સ્માર્ટ લાકડી",
-      "મેદાનમાં ડ્રોન ઉડાડતા",
-      "કમ્પ્યુટર ખંડમાં પ્રોગ્રામિંગ",
-      "સ્માર્ટ ઘરનું મોડેલ",
-      "આર્ડુઇનો વડે સર્કિટ બનાવતા",
-      "પાણીના સેન્સરનું પરીક્ષણ",
-      "સ્વયંચાલિત છોડ સિંચાઈ પ્રણાલી",
-      "એલસીડી ડિસ્પ્લેનું પ્રોગ્રામિંગ",
-      "કમ્પ્યુટર ખંડમાં વર્ગ",
-      "ટેબ્લેટથી રોબોટ કાર ચલાવતા",
-      "હાથના ઇશારાથી ચાલતો સેન્સર પ્રોજેક્ટ",
-      "સ્માર્ટ લાકડીની રજૂઆત",
-      "કમ્પ્યુટર પર સાથે શીખતા",
-    ],
   },
   media: {
     heading: "મીડિયા અને લાઇવ",
@@ -1147,21 +939,10 @@ const gu: Dict = {
     themesHeading: "સીએસઆર રોકાણના ક્ષેત્રો",
     themes: ["પરિસર અને મૂળભૂત માળખું", "શિક્ષણ અને શ્રેષ્ઠતા કેન્દ્રો", "ડિજિટલ ગુરુકુલ", "જીવન અને આત્મનિર્ભરતા", "રમતગમત, સંસ્કૃતિ અને સુખાકારી", "હરિત અને ટકાઉ ગુરુકુલ"],
     totalLabel: "કુલ સીએસઆર જરૂરિયાત",
-    total: "₹1.80 કરોડ",
     centreHeading: "રોબોટિક્સ, એઆઈ અને નવીનતા કેન્દ્ર",
     centreIntro: "ટેકનોલોજી શીખવાથી ટેકનોલોજી રચવા સુધી. રોબોટિક્સ અને નવી ટેકનોલોજીમાં પ્રત્યક્ષ કાર્ય માટેનું શ્રેષ્ઠતા કેન્દ્ર.",
     centreItems: ["રોબોટિક્સ વર્કસ્ટેશન", "આર્ડુઇનો અને આઈઓટી કિટ", "એઆઈ શિક્ષણ સાધનો", "ડ્રોન ટેકનોલોજી", "3D પ્રિન્ટિંગ", "કોડિંગ અને પ્રોગ્રામિંગ ઝોન", "વિદ્યાર્થી નવીનતા અને પ્રોજેક્ટ પ્રદર્શન", "ડિજિટલ શિક્ષણ વ્યવસ્થા"],
-    centreFacts: [
-      { label: "કુલ પ્રોજેક્ટ ખર્ચ", value: "₹30 લાખ" },
-      { label: "અપેક્ષિત સીએસઆર યોગદાન", value: "દર વર્ષે ₹9 લાખ" },
-      { label: "દર વર્ષે લાભાન્વિત વિદ્યાર્થીઓ", value: "75" },
-    ],
     levelsHeading: "આપ કેવી રીતે સહયોગ આપી શકો",
-    levels: [
-      { title: "એક ઘટકમાં સહયોગ", amount: "₹25 લાખ+", text: "કોઈ ચોક્કસ માળખા કે સાધનમાં સહયોગ આપો." },
-      { title: "એક સુવિધા પ્રાયોજિત કરો", amount: "₹50 લાખ+", text: "ઓળખી શકાય તેવી શૈક્ષણિક સુવિધા બનાવવામાં મદદ કરો." },
-      { title: "પરિવર્તનકારી ભાગીદાર બનો", amount: "₹1 કરોડ+", text: "પરિસર વિકાસના મોટા કાર્યક્રમમાં સહયોગ આપો." },
-    ],
     levelsNote: "પ્રાયોજન સ્તરો ઉદાહરણરૂપ છે અને ટ્રસ્ટની મંજૂરીને આધીન છે. સીએસઆર ભાગીદારી ચોક્કસ પ્રોજેક્ટ, સુવિધા, સાધન કે પરિસર વિસ્તાર મુજબ પણ ગોઠવી શકાય છે.",
     cta: "સીએસઆર ભાગીદારી માટે સંપર્ક કરો",
   },
@@ -1175,7 +956,6 @@ const gu: Dict = {
   contact: {
     heading: "સંપર્ક કરો",
     addressLabel: "સરનામું",
-    address: ["સંત શ્રી ઓધવરામ વૈદિક ગુરુકુલ,", "ભવાનીપર, તાલુકો અબડાસા,", "જિલ્લો કચ્છ (ભુજ), ગુજરાત – 370650"],
     phoneLabel: "ફોન / યુપીઆઈ",
     emailLabel: "ઈમેલ",
     call: "ફોન કરો",

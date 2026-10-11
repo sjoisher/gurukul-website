@@ -1,0 +1,40 @@
+{
+  "people": [
+    {
+      "name": {
+        "en": "Acharya Gaurav Arya",
+        "hi": "आचार्य गौरव आर्य",
+        "gu": "આચાર્ય ગૌરવ આર્ય"
+      },
+      "note": {
+        "en": "Morning prayer, havan, shramdaan and sports",
+        "hi": "प्रातः प्रार्थना, हवन, श्रमदान और खेल",
+        "gu": "પ્રાતઃ પ્રાર્થના, હવન, શ્રમદાન અને રમતગમત"
+      }
+    },
+    {
+      "name": {
+        "en": "Upacharya Vivek Shastri",
+        "hi": "उपाचार्य विवेक शास्त्री",
+        "gu": "ઉપાચાર્ય વિવેક શાસ્ત્રી"
+      },
+      "note": {
+        "en": "Exercise and pranayama, classes and evening sandhya",
+        "hi": "व्यायाम-प्राणायाम, कक्षाएँ और सायं संध्या",
+        "gu": "વ્યાયામ-પ્રાણાયામ, વર્ગો અને સાંજની સંધ્યા"
+      }
+    },
+    {
+      "name": {
+        "en": "Adhyapak Sagar Arya",
+        "hi": "अध्यापक सागर आर्य",
+        "gu": "અધ્યાપક સાગર આર્ય"
+      },
+      "note": {
+        "en": "Breakfast, meals and the evening walk",
+        "hi": "प्रातराश, भोजन और भ्रमण",
+        "gu": "પ્રાતરાશ, ભોજન અને ભ્રમણ"
+      }
+    }
+  ]
+}

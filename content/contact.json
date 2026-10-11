@@ -1,0 +1,25 @@
+{
+  "phone": "8305209795",
+  "phone2": "9773481979",
+  "email": "vaidikgurukulbhavanipur@gmail.com",
+  "enquiryFormUrl": "https://docs.google.com/forms/d/e/1FAIpQLScb3X70igy6hgxaL_7_wo-KGKDukis0lK3ID9bgjSE202qkqA/viewform",
+  "address": {
+    "en": "Sant Shri Odhavram Vaidic Gurukul,\nBhavanipar, Taluka Abdasa,\nDistrict Kutch (Bhuj), Gujarat – 370650",
+    "hi": "संत श्री ओधवराम वैदिक गुरुकुल,\nभवानीपर, तालुका अबडासा,\nजिला कच्छ (भुज), गुजरात – 370650",
+    "gu": "સંત શ્રી ઓધવરામ વૈદિક ગુરુકુલ,\nભવાનીપર, તાલુકો અબડાસા,\nજિલ્લો કચ્છ (ભુજ), ગુજરાત – 370650"
+  },
+  "bank": {
+    "name": {
+      "en": "Jankalyan Sahakari Bank Ltd",
+      "hi": "जनकल्याण सहकारी बैंक लिमिटेड",
+      "gu": "જનકલ્યાણ સહકારી બેંક લિમિટેડ"
+    },
+    "accountName": {
+      "en": "Shree Nityanand Shivanand Saraswati Yog",
+      "hi": "श्री नित्यानंद शिवानंद सरस्वती योग",
+      "gu": "શ્રી નિત્યાનંદ શિવાનંદ સરસ્વતી યોગ"
+    },
+    "accountNumber": "00801010005422",
+    "ifsc": "JSBL0000008"
+  }
+}

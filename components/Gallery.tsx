@@ -2,11 +2,12 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import { gallery } from "@/lib/site";
+import type { Photo } from "@/lib/content";
 
 type Labels = { close: string; prev: string; next: string };
+type Item = Photo & { caption: string };
 
-export function Gallery({ captions, labels }: { captions: string[]; labels: Labels }) {
+export function Gallery({ photos, labels }: { photos: Item[]; labels: Labels }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [index, setIndex] = useState<number | null>(null);
 
@@ -15,10 +16,8 @@ export function Gallery({ captions, labels }: { captions: string[]; labels: Labe
     dialog.current?.showModal();
   };
   const close = () => dialog.current?.close();
-  const step = useCallback(
-    (d: number) => setIndex((i) => (i === null ? i : (i + d + gallery.length) % gallery.length)),
-    [],
-  );
+  const count = photos.length;
+  const step = useCallback((d: number) => setIndex((i) => (i === null ? i : (i + d + count) % count)), [count]);
 
   useEffect(() => {
     const el = dialog.current;
@@ -36,13 +35,13 @@ export function Gallery({ captions, labels }: { captions: string[]; labels: Labe
     };
   }, [step]);
 
-  const current = index === null ? null : gallery[index];
+  const current = index === null ? null : photos[index];
 
   return (
     <>
       <ul className="columns-2 gap-3 sm:columns-3 lg:columns-4 [&>li]:mb-3">
-        {gallery.map((img, i) => (
-          <li key={img.n} className="break-inside-avoid">
+        {photos.map((img, i) => (
+          <li key={img.sm} className="break-inside-avoid">
             <button
               type="button"
               onClick={() => open(i)}
@@ -50,8 +49,8 @@ export function Gallery({ captions, labels }: { captions: string[]; labels: Labe
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={`/images/gallery/${img.n}-sm.jpg`}
-                alt={captions[i]}
+                src={img.sm}
+                alt={img.caption}
                 width={600}
                 height={Math.round((600 * img.h) / img.w)}
                 loading="lazy"
@@ -59,7 +58,7 @@ export function Gallery({ captions, labels }: { captions: string[]; labels: Labe
                 className="h-auto w-full transition-transform duration-500 group-hover:scale-[1.03]"
               />
               <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-3 pb-2.5 pt-8 text-left text-xs font-medium text-white opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
-                {captions[i]}
+                {img.caption}
               </span>
             </button>
           </li>
@@ -70,20 +69,20 @@ export function Gallery({ captions, labels }: { captions: string[]; labels: Labe
         ref={dialog}
         className="m-auto h-full max-h-none w-full max-w-none bg-transparent p-0 backdrop:bg-black/90"
         onClick={(e) => e.target === e.currentTarget && close()}
-        aria-label={current ? captions[index!] : undefined}
+        aria-label={current?.caption}
       >
         {current && (
           <div className="flex h-full flex-col items-center justify-center gap-4 p-4" onClick={(e) => e.target === e.currentTarget && close()}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={`/images/gallery/${current.n}.jpg`}
-              alt={captions[index!]}
+              src={current.lg}
+              alt={current.caption}
               width={current.w}
               height={current.h}
               className="max-h-[80vh] w-auto max-w-full rounded-lg object-contain"
             />
             <p className="text-center text-sm text-white/90">
-              {captions[index!]} <span className="text-white/50">· {index! + 1} / {gallery.length}</span>
+              {current.caption} <span className="text-white/50">· {index! + 1} / {count}</span>
             </p>
             <div className="flex gap-3">
               <button type="button" onClick={() => step(-1)} className="lightbox-btn" aria-label={labels.prev}>
