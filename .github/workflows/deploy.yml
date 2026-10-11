@@ -37,6 +37,20 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
+      # Fail in one clear line if a secret is missing, before spending time on
+      # the build. Prints names only; values are never echoed.
+      - name: Check the FTP secrets are available
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          missing=0
+          for name in FTP_HOST FTP_USER FTP_PASSWORD; do
+            if [ -n "${!name}" ]; then echo "$name: set"; else echo "::error::$name is empty or not visible to this workflow. Add it under Settings → Secrets and variables → Actions → Repository secrets."; missing=1; fi
+          done
+          exit $missing
+
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
         with:
