@@ -90,21 +90,58 @@ jobs:
             **/.DS_Store
 
       # DNS may not point at the server yet, so ask the server directly for
-      # vedicgurukul.com by its Host header rather than going through DNS.
+      # vedicgurukul.com by its Host header. SITE_IP is the cPanel account's
+      # shared IP (cPanel → General Information → Shared IP Address), which is
+      # not the same as the server's main IP that FTP_HOST resolves to: asking
+      # the main IP returns the server's default page, which answers 200 for
+      # almost anything. So each page is also checked for its own text.
       - name: Verify the deployed site on the server
         if: ${{ github.event_name == 'push' || github.event.inputs.dry_run == 'false' }}
         env:
-          FTP_HOST: ${{ secrets.FTP_HOST }}
+          SITE_IP: 199.79.63.251
+          HOST: vedicgurukul.com
         run: |
-          ip=$(getent ahostsv4 "$FTP_HOST" | awk 'NR==1{print $1}')
-          echo "Server IP: $ip"
           fail=0
-          for path in / /hi/ /gu/ /images/og.jpg /videos/stem-1.mp4 /documents/Dinacharya.pdf; do
-            code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 -H 'Host: vedicgurukul.com' "http://$ip$path")
-            echo "$code $path"
-            [ "$code" = 200 ] || fail=1
-          done
-          code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 -H 'Host: vedicgurukul.com' "http://$ip/.ftp-deploy-sync-state.json")
-          echo "$code /.ftp-deploy-sync-state.json (must not be 200)"
-          [ "$code" != 200 ] || fail=1
+          get() { curl -s --max-time 30 -H "Host: $HOST" -o "$2" -w '%{http_code} %{content_type} %{size_download}B' "http://$SITE_IP$1"; }
+
+          # path | text the page must contain
+          while IFS='|' read -r path marker; do
+            res=$(get "$path" /tmp/page)
+            if [ "${res%% *}" = 200 ] && grep -q "$marker" /tmp/page; then
+              echo "ok    $path  ($res)"
+            else
+              echo "::error::$path did not return the Gurukul page ($res). Title: $(grep -o '<title>[^<]*' /tmp/page | head -1)"
+              fail=1
+            fi
+          done <<'PAGES'
+          /|Sant Shri Odhavram Vaidic Gurukul
+          /hi/|संत श्री ओधवराम वैदिक गुरुकुल
+          /gu/|સંત શ્રી ઓધવરામ વૈદિક ગુરુકુલ
+          PAGES
+
+          # path | expected content type prefix
+          while IFS='|' read -r path type; do
+            res=$(get "$path" /tmp/file)
+            case "$res" in
+              "200 $type"*) echo "ok    $path  ($res)" ;;
+              *) echo "::error::$path: expected 200 $type, got $res"; fail=1 ;;
+            esac
+          done <<'FILES'
+          /images/og.jpg|image/jpeg
+          /images/gallery/1-sm.jpg|image/jpeg
+          /videos/stem-1.mp4|video/mp4
+          /documents/Dinacharya.pdf|application/pdf
+          /sitemap.xml|application/xml
+          FILES
+
+          res=$(get /.ftp-deploy-sync-state.json /tmp/file)
+          if [ "${res%% *}" = 200 ]; then
+            echo "::error::/.ftp-deploy-sync-state.json is publicly readable ($res), so .htaccess is not in effect"; fail=1
+          else
+            echo "ok    /.ftp-deploy-sync-state.json blocked ($res)"
+          fi
+
+          res=$(get /this-page-does-not-exist/ /tmp/file)
+          [ "${res%% *}" = 404 ] && echo "ok    unknown path returns 404" || { echo "::error::unknown path returned $res, expected 404"; fail=1; }
+
           exit $fail
