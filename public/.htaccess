@@ -1,4 +1,4 @@
-# Apache config for vedicgurukul.com on cPanel shared hosting.
+# Apache config for vaidikgurukul.org on cPanel shared hosting.
 # Next.js copies this file from public/ into out/, so it ships with every deploy.
 
 DirectoryIndex index.html
@@ -6,16 +6,18 @@ ErrorDocument 404 /404.html
 DirectorySlash On
 Options -Indexes
 
-# www → apex. Matched explicitly so the temporary cPanel hostname and any
-# staging alias are left alone.
+# www → apex, and the earlier domain vedicgurukul.com (if it is still parked
+# on this account) → vaidikgurukul.org. Matched explicitly so the temporary
+# cPanel hostname and any staging alias are left alone.
 #
 # HTTPS is NOT forced here: until DNS points at the server, AutoSSL cannot
 # issue a certificate and a forced redirect would break the site. Once the
 # certificate is live, turn on Domains → Force HTTPS Redirect in cPanel.
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteCond %{HTTP_HOST} ^www\.vedicgurukul\.com$ [NC]
-  RewriteRule ^(.*)$ https://vedicgurukul.com/$1 [L,R=301]
+  RewriteCond %{HTTP_HOST} ^(www\.)?vedicgurukul\.com$ [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www\.vaidikgurukul\.org$ [NC]
+  RewriteRule ^(.*)$ https://vaidikgurukul.org/$1 [L,R=301]
 </IfModule>
 
 # The FTP deploy action keeps its sync state in the webroot; never serve it,

@@ -10,7 +10,7 @@ name: Deploy
 # Required repository secrets (Settings → Secrets and variables → Actions):
 #   FTP_HOST      bh-20.webhostbox.net — the hostname, not the IP: the
 #                 server's certificate is for *.webhostbox.net
-#   FTP_USER      an FTP account whose home directory is vedicgurukul.com's
+#   FTP_USER      an FTP account whose home directory is vaidikgurukul.org's
 #                 document root (cPanel → FTP Accounts)
 #   FTP_PASSWORD
 
@@ -64,10 +64,10 @@ jobs:
           for f in index.html hi/index.html gu/index.html 404.html .htaccess sitemap.xml robots.txt documents/Dinacharya.pdf admin/index.html admin/config.yml; do
             test -s "out/$f" || { echo "::error::out/$f is missing"; exit 1; }
           done
-          if grep -rl "gurukul.joisher.com" out --include='*.html' --include='*.xml' --include='*.txt'; then
-            echo "::error::The build still points at the old domain"; exit 1
+          if grep -rlE "gurukul\.joisher\.com|vedicgurukul\.com" out --include='*.html' --include='*.xml' --include='*.txt'; then
+            echo "::error::The build still points at an old domain"; exit 1
           fi
-          grep -q 'https://vedicgurukul.com/' out/sitemap.xml
+          grep -q 'https://vaidikgurukul.org/' out/sitemap.xml
           ls out/images/generated/*-600.jpg >/dev/null || { echo "::error::No web-sized photos in out/images/generated"; exit 1; }
           if [ -d out/photos ]; then echo "::error::Original photos ended up in the build"; exit 1; fi
           du -sh out
@@ -92,7 +92,7 @@ jobs:
             **/.DS_Store
 
       # DNS may not point at the server yet, so ask the server directly for
-      # vedicgurukul.com rather than going through DNS. SITE_IP is the cPanel
+      # vaidikgurukul.org rather than going through DNS. SITE_IP is the cPanel
       # account's shared IP (cPanel → General Information → Shared IP
       # Address); the server's main IP, which FTP_HOST resolves to, is tried
       # too, over HTTP and HTTPS. Each page must contain its own text: the
@@ -102,7 +102,7 @@ jobs:
         if: ${{ github.event_name == 'push' || github.event.inputs.dry_run == 'false' }}
         env:
           SITE_IP: 199.79.63.251
-          HOST: vedicgurukul.com
+          HOST: vaidikgurukul.org
           FTP_HOST: ${{ secrets.FTP_HOST }}
         run: |
           main_ip=$(getent ahostsv4 "$FTP_HOST" | awk 'NR==1{print $1}')
@@ -134,7 +134,7 @@ jobs:
 
           if [ -z "$route" ]; then
             if [ "$provider_error" = 1 ]; then
-              echo "::warning::Files uploaded, but the web server is not serving vedicgurukul.com yet: it answers with the hosting provider's 'Page cannot be displayed' page. This is expected until the domain's DNS points at $SITE_IP; if DNS already does, ask the host to check the domain's web server configuration."
+              echo "::warning::Files uploaded, but the web server is not serving vaidikgurukul.org yet: it answers with the hosting provider's 'Page cannot be displayed' page. This is expected until the domain's DNS points at $SITE_IP; if DNS already does, ask the host to check the domain's web server configuration."
               exit 0
             fi
             echo "::error::No route served the Gurukul home page. What http via $SITE_IP returned:"; show "/tmp/probe-http-$SITE_IP"; exit 1

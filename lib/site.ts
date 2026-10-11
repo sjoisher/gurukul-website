@@ -7,7 +7,7 @@ import videos from "@/content/videos.json";
 const digits = (s: string) => s.replace(/\D/g, "").replace(/^91(?=\d{10}$)/, "");
 
 export const site = {
-  url: "https://vedicgurukul.com",
+  url: "https://vaidikgurukul.org",
   phone: digits(contact.phone),
   phoneIntl: `+91${digits(contact.phone)}`,
   phone2: digits(contact.phone2),
