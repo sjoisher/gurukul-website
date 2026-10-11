@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    @apply bg-parchment font-sans text-ink antialiased;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-saffron;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-saffron-dark;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-saffron px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-saffron-dark disabled:opacity-60;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-maroon/20 bg-white px-6 py-3 text-sm font-semibold text-maroon transition-colors hover:border-maroon/50;
+  }
+  .btn-ghost-light {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10;
+  }
+  .card {
+    @apply rounded-2xl border border-sand bg-white shadow-[0_1px_2px_rgba(42,36,32,0.04)];
+  }
+  .field-label {
+    @apply mb-1.5 block text-sm font-medium text-ink;
+  }
+  .field-input {
+    @apply block w-full rounded-lg border border-sand bg-parchment px-3.5 py-2.5 text-ink placeholder:text-muted/60 focus:border-saffron focus:outline-none focus:ring-2 focus:ring-saffron/30;
+  }
+  .footer-heading {
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-saffron-light;
+  }
+  .prose-gurukul p {
+    @apply mt-4 text-lg leading-relaxed text-muted first:mt-0;
+  }
+}
