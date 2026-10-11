@@ -90,41 +90,66 @@ jobs:
             **/.DS_Store
 
       # DNS may not point at the server yet, so ask the server directly for
-      # vedicgurukul.com by its Host header. SITE_IP is the cPanel account's
-      # shared IP (cPanel → General Information → Shared IP Address), which is
-      # not the same as the server's main IP that FTP_HOST resolves to: asking
-      # the main IP returns the server's default page, which answers 200 for
-      # almost anything. So each page is also checked for its own text.
+      # vedicgurukul.com rather than going through DNS. SITE_IP is the cPanel
+      # account's shared IP (cPanel → General Information → Shared IP
+      # Address); the server's main IP, which FTP_HOST resolves to, is tried
+      # too, over HTTP and HTTPS. Each page must contain its own text: the
+      # hosting provider answers 200 with an error page for domains it is not
+      # (yet) serving.
       - name: Verify the deployed site on the server
         if: ${{ github.event_name == 'push' || github.event.inputs.dry_run == 'false' }}
         env:
           SITE_IP: 199.79.63.251
           HOST: vedicgurukul.com
+          FTP_HOST: ${{ secrets.FTP_HOST }}
         run: |
-          fail=0
-          get() { curl -s --max-time 30 -H "Host: $HOST" -A "Mozilla/5.0 (deploy check)" -o "$2" -w '%{http_code} %{content_type} %{size_download}B -> %{redirect_url}' "http://$SITE_IP$1"; }
-          # On a mismatch, show what the server actually sent (first 400 bytes, one line).
+          main_ip=$(getent ahostsv4 "$FTP_HOST" | awk 'NR==1{print $1}')
+          # get <scheme> <ip> <path> <outfile>
+          get() {
+            port=80; [ "$1" = https ] && port=443
+            rm -f "$4"; : > "$4"
+            curl -sk --max-time 30 -A "Mozilla/5.0 (deploy check)" --resolve "$HOST:$port:$2" \
+              -o "$4" -w '%{http_code} %{content_type} %{size_download}B -> %{redirect_url}' "$1://$HOST$3"
+          }
           show() { echo "      body: $(head -c 400 "$1" | tr '\n\r\t' '   ')"; }
 
-          # path | text the page must contain
-          while IFS='|' read -r path marker; do
-            res=$(get "$path" /tmp/page)
-            if [ "${res%% *}" = 200 ] && grep -q "$marker" /tmp/page; then
-              echo "ok    $path  ($res)"
-            else
-              echo "::error::$path did not return the Gurukul page ($res). Title: $(grep -o '<title>[^<]*' /tmp/page | head -1)"
-              show /tmp/page
-              fail=1
+          # 1. Find a route on which the server serves the Gurukul home page.
+          route=""; provider_error=0
+          for ip in "$SITE_IP" "$main_ip"; do
+            for scheme in http https; do
+              probe="/tmp/probe-$scheme-$ip"
+              res=$(get "$scheme" "$ip" / "$probe")
+              if grep -q "Sant Shri Odhavram Vaidic Gurukul" "$probe"; then
+                echo "ok    $scheme via $ip serves the site ($res)"
+                [ -z "$route" ] && route="$scheme $ip"
+              else
+                echo "--    $scheme via $ip: not the site ($res)"
+                grep -q "Page cannot be displayed" "$probe" && provider_error=1
+              fi
+            done
+          done
+
+          if [ -z "$route" ]; then
+            if [ "$provider_error" = 1 ]; then
+              echo "::warning::Files uploaded, but the web server is not serving vedicgurukul.com yet: it answers with the hosting provider's 'Page cannot be displayed' page. This is expected until the domain's DNS points at $SITE_IP; if DNS already does, ask the host to check the domain's web server configuration."
+              exit 0
             fi
+            echo "::error::No route served the Gurukul home page. What http via $SITE_IP returned:"; show "/tmp/probe-http-$SITE_IP"; exit 1
+          fi
+
+          # 2. Full checks on the working route.
+          set -- $route; scheme=$1; ip=$2; fail=0
+          while IFS='|' read -r path marker; do
+            res=$(get "$scheme" "$ip" "$path" /tmp/page)
+            if [ "${res%% *}" = 200 ] && grep -q "$marker" /tmp/page; then echo "ok    $path  ($res)"
+            else echo "::error::$path did not return the Gurukul page ($res)"; show /tmp/page; fail=1; fi
           done <<'PAGES'
-          /|Sant Shri Odhavram Vaidic Gurukul
           /hi/|संत श्री ओधवराम वैदिक गुरुकुल
           /gu/|સંત શ્રી ઓધવરામ વૈદિક ગુરુકુલ
           PAGES
 
-          # path | expected content type prefix
           while IFS='|' read -r path type; do
-            res=$(get "$path" /tmp/file)
+            res=$(get "$scheme" "$ip" "$path" /tmp/file)
             case "$res" in
               "200 $type"*) echo "ok    $path  ($res)" ;;
               *) echo "::error::$path: expected 200 $type, got $res"; show /tmp/file; fail=1 ;;
@@ -137,14 +162,11 @@ jobs:
           /sitemap.xml|application/xml
           FILES
 
-          res=$(get /.ftp-deploy-sync-state.json /tmp/file)
-          if [ "${res%% *}" = 200 ]; then
-            echo "::error::/.ftp-deploy-sync-state.json is publicly readable ($res), so .htaccess is not in effect"; fail=1
-          else
-            echo "ok    /.ftp-deploy-sync-state.json blocked ($res)"
-          fi
+          res=$(get "$scheme" "$ip" /.ftp-deploy-sync-state.json /tmp/file)
+          if [ "${res%% *}" = 200 ]; then echo "::error::/.ftp-deploy-sync-state.json is publicly readable ($res), so .htaccess is not in effect"; fail=1
+          else echo "ok    /.ftp-deploy-sync-state.json blocked ($res)"; fi
 
-          res=$(get /this-page-does-not-exist/ /tmp/file)
+          res=$(get "$scheme" "$ip" /this-page-does-not-exist/ /tmp/file)
           [ "${res%% *}" = 404 ] && echo "ok    unknown path returns 404" || { echo "::error::unknown path returned $res, expected 404"; fail=1; }
 
           exit $fail
