@@ -1,0 +1,98 @@
+{
+  "total": {
+    "en": "₹1.80 crore",
+    "hi": "₹1.80 करोड़",
+    "gu": "₹1.80 કરોડ"
+  },
+  "centreFacts": [
+    {
+      "label": {
+        "en": "Total project cost",
+        "hi": "कुल परियोजना लागत",
+        "gu": "કુલ પ્રોજેક્ટ ખર્ચ"
+      },
+      "value": {
+        "en": "₹30 lakh",
+        "hi": "₹30 लाख",
+        "gu": "₹30 લાખ"
+      }
+    },
+    {
+      "label": {
+        "en": "CSR contribution requested",
+        "hi": "अपेक्षित सीएसआर योगदान",
+        "gu": "અપેક્ષિત સીએસઆર યોગદાન"
+      },
+      "value": {
+        "en": "₹9 lakh per year",
+        "hi": "₹9 लाख प्रति वर्ष",
+        "gu": "દર વર્ષે ₹9 લાખ"
+      }
+    },
+    {
+      "label": {
+        "en": "Students benefited annually",
+        "hi": "प्रति वर्ष लाभान्वित विद्यार्थी",
+        "gu": "દર વર્ષે લાભાન્વિત વિદ્યાર્થીઓ"
+      },
+      "value": {
+        "en": "75",
+        "hi": "75",
+        "gu": "75"
+      }
+    }
+  ],
+  "levels": [
+    {
+      "title": {
+        "en": "Support a component",
+        "hi": "एक घटक में सहयोग",
+        "gu": "એક ઘટકમાં સહયોગ"
+      },
+      "amount": {
+        "en": "₹25 lakh+",
+        "hi": "₹25 लाख+",
+        "gu": "₹25 લાખ+"
+      },
+      "text": {
+        "en": "Support a specific infrastructure or equipment component.",
+        "hi": "किसी विशेष अवसंरचना या उपकरण में सहयोग करें।",
+        "gu": "કોઈ ચોક્કસ માળખા કે સાધનમાં સહયોગ આપો."
+      }
+    },
+    {
+      "title": {
+        "en": "Sponsor a facility",
+        "hi": "एक सुविधा प्रायोजित करें",
+        "gu": "એક સુવિધા પ્રાયોજિત કરો"
+      },
+      "amount": {
+        "en": "₹50 lakh+",
+        "hi": "₹50 लाख+",
+        "gu": "₹50 લાખ+"
+      },
+      "text": {
+        "en": "Help create an identifiable educational facility.",
+        "hi": "एक पहचान योग्य शैक्षणिक सुविधा के निर्माण में सहायता करें।",
+        "gu": "ઓળખી શકાય તેવી શૈક્ષણિક સુવિધા બનાવવામાં મદદ કરો."
+      }
+    },
+    {
+      "title": {
+        "en": "Become a transformational partner",
+        "hi": "परिवर्तनकारी सहभागी बनें",
+        "gu": "પરિવર્તનકારી ભાગીદાર બનો"
+      },
+      "amount": {
+        "en": "₹1 crore+",
+        "hi": "₹1 करोड़+",
+        "gu": "₹1 કરોડ+"
+      },
+      "text": {
+        "en": "Support a major campus development programme.",
+        "hi": "परिसर विकास के एक बड़े कार्यक्रम में सहयोग करें।",
+        "gu": "પરિસર વિકાસના મોટા કાર્યક્રમમાં સહયોગ આપો."
+      }
+    }
+  ]
+}

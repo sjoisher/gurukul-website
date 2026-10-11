@@ -10,20 +10,42 @@ npm run build   # static site in ./out — upload its contents to the web host
 
 ## Sections
 
-Hero · at a glance · about · inspiration (the five figures on the banner) · vision · learning & activities · science, technology & robotics (13 videos) · daily dinacharya (full timetable, skill classes, sports rota, PDF) · teachers · gallery (20 photos with lightbox) · media & live (YouTube video, live streams, Instagram reels) · the Trust (registration, 80G, objectives, trustees) · support & donations (QR, bank details with copy buttons) · visit & contact (address, phones, email, directions, Google Form).
+Hero · at a glance · about · inspiration (the five figures on the banner) · vision · learning & activities · science, technology & robotics (videos) · daily dinacharya (full timetable, skill classes, sports rota, PDF) · teachers · gallery (with lightbox) · media & live (YouTube video, live streams, Instagram reels) · news & events · the Trust (registration, 80G, objectives, trustees) · building the future (CSR) · support & donations (QR, bank details with copy buttons) · visit & contact (address, phones, email, directions, Google Form).
+
+## Editing content at /admin
+
+These sections are edited in a browser at **vedicgurukul.com/admin** (Sveltia CMS), with English, Hindi and Gujarati side by side:
+
+News & events · numbers at a glance · teachers · trustees · gallery · videos (main YouTube video, live streams, Instagram reels, science clips) · CSR figures · contact and bank details.
+
+Saving in the editor commits to `main`, and every push to `main` deploys, so a change is live about 3 minutes later (see Actions → Deploy). English is required; a blank Hindi or Gujarati field shows the English text.
+
+**Signing in.** The editor signs in with a GitHub token (no login server needed):
+
+1. GitHub → Settings → Developer settings → Personal access tokens → **Fine-grained tokens** → Generate new token.
+2. Repository access: **Only select repositories** → `sjoisher/gurukul-website`.
+3. Permissions → Repository permissions → **Contents: Read and write**.
+4. Copy the token, open `/admin`, choose **Sign In Using Access Token** and paste it. The browser remembers it; create a new one when it expires.
+
+To add more editors later, set up the [Sveltia CMS GitHub OAuth worker](https://github.com/sveltia/sveltia-cms-auth) and add its URL as `base_url` in `public/admin/config.yml`, so each editor signs in with their GitHub account.
+
+**Photos.** Upload any size; originals are stored in `content/photos/` (never deployed) and `scripts/media.mjs` makes a 600 px and a 1600 px copy in `public/images/generated/` on every build. The hero, about and vision sections use gallery photos 5, 7, 9, 14 and 20 (`/photos/gallery/N.jpg`), so keep those files even if you take them out of the gallery.
+
+**Videos.** Science clips go in `public/videos/` and are served as uploaded: keep each MP4 under about 20 MB.
 
 ## Where things live
 
 | What | File |
 |---|---|
-| All page text, in all three languages | `lib/i18n.ts` |
-| Phone numbers, email, bank numbers, video IDs, gallery list | `lib/site.ts` |
+| Content edited at /admin | `content/*.json`, `content/news/*.json` |
+| How those files are read | `lib/content.ts` |
+| Editor configuration | `public/admin/config.yml` |
+| All other page text, in all three languages | `lib/i18n.ts` |
+| Site URL, map link; contact and video settings from `content/` | `lib/site.ts` |
 | Page layout | `components/HomePage.tsx` |
-| Photos (`N.jpg` full size, `N-sm.jpg` grid) | `public/images/gallery/` |
+| Original photos | `content/photos/` |
 | Science videos and their poster frames | `public/videos/` |
 | Dinacharya PDF | `public/documents/Dinacharya.pdf` |
-
-To add a photo: save it as `public/images/gallery/21.jpg` (about 1400 px wide) and `21-sm.jpg` (600 px wide), add `{ n: 21, w, h }` to `gallery` in `lib/site.ts`, and add a caption at the end of `gallery.captions` for each language in `lib/i18n.ts`.
 
 ## Sources
 

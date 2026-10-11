@@ -61,13 +61,15 @@ jobs:
 
       - name: Check the build before shipping it
         run: |
-          for f in index.html hi/index.html gu/index.html 404.html .htaccess sitemap.xml robots.txt documents/Dinacharya.pdf; do
+          for f in index.html hi/index.html gu/index.html 404.html .htaccess sitemap.xml robots.txt documents/Dinacharya.pdf admin/index.html admin/config.yml; do
             test -s "out/$f" || { echo "::error::out/$f is missing"; exit 1; }
           done
           if grep -rl "gurukul.joisher.com" out --include='*.html' --include='*.xml' --include='*.txt'; then
             echo "::error::The build still points at the old domain"; exit 1
           fi
           grep -q 'https://vedicgurukul.com/' out/sitemap.xml
+          ls out/images/generated/*-600.jpg >/dev/null || { echo "::error::No web-sized photos in out/images/generated"; exit 1; }
+          if [ -d out/photos ]; then echo "::error::Original photos ended up in the build"; exit 1; fi
           du -sh out
 
       - name: Deploy over FTPS
@@ -147,6 +149,7 @@ jobs:
           done <<'PAGES'
           /hi/|संत श्री ओधवराम वैदिक गुरुकुल
           /gu/|સંત શ્રી ઓધવરામ વૈદિક ગુરુકુલ
+          /admin/|sveltia-cms.js
           PAGES
 
           while IFS='|' read -r path type; do
@@ -157,7 +160,7 @@ jobs:
             esac
           done <<'FILES'
           /images/og.jpg|image/jpeg
-          /images/gallery/1-sm.jpg|image/jpeg
+          /images/logo.png|image/png
           /videos/stem-1.mp4|video/mp4
           /documents/Dinacharya.pdf|application/pdf
           /sitemap.xml|application/xml

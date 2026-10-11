@@ -1,0 +1,154 @@
+{
+  "featuredYoutubeId": "6ffKm1a-gpU",
+  "liveStreams": [
+    {
+      "youtubeId": "wxSy2VXsEjY"
+    },
+    {
+      "youtubeId": "5-KbXu5-Bj8"
+    },
+    {
+      "youtubeId": "aO6_0vZF3-g"
+    }
+  ],
+  "reels": [
+    {
+      "instagramId": "DeEKOflgAtR"
+    },
+    {
+      "instagramId": "DcWFfDnSzHI"
+    }
+  ],
+  "stem": [
+    {
+      "video": "/videos/stem-1.mp4",
+      "poster": "/videos/stem-1.jpg",
+      "seconds": 16,
+      "caption": {
+        "en": "A smart walking stick for the visually impaired",
+        "hi": "दृष्टिबाधितों के लिए स्मार्ट छड़ी",
+        "gu": "દૃષ્ટિહીનો માટે સ્માર્ટ લાકડી"
+      }
+    },
+    {
+      "video": "/videos/stem-2.mp4",
+      "poster": "/videos/stem-2.jpg",
+      "seconds": 22,
+      "caption": {
+        "en": "Flying a drone on the grounds",
+        "hi": "मैदान में ड्रोन उड़ाते हुए",
+        "gu": "મેદાનમાં ડ્રોન ઉડાડતા"
+      }
+    },
+    {
+      "video": "/videos/stem-3.mp4",
+      "poster": "/videos/stem-3.jpg",
+      "seconds": 57,
+      "caption": {
+        "en": "Programming in the computer lab",
+        "hi": "कम्प्यूटर कक्ष में प्रोग्रामिंग",
+        "gu": "કમ્પ્યુટર ખંડમાં પ્રોગ્રામિંગ"
+      }
+    },
+    {
+      "video": "/videos/stem-4.mp4",
+      "poster": "/videos/stem-4.jpg",
+      "seconds": 37,
+      "caption": {
+        "en": "A smart house model",
+        "hi": "स्मार्ट घर का मॉडल",
+        "gu": "સ્માર્ટ ઘરનું મોડેલ"
+      }
+    },
+    {
+      "video": "/videos/stem-5.mp4",
+      "poster": "/videos/stem-5.jpg",
+      "seconds": 9,
+      "caption": {
+        "en": "Building circuits with an Arduino",
+        "hi": "आर्डुइनो से सर्किट बनाते हुए",
+        "gu": "આર્ડુઇનો વડે સર્કિટ બનાવતા"
+      }
+    },
+    {
+      "video": "/videos/stem-6.mp4",
+      "poster": "/videos/stem-6.jpg",
+      "seconds": 7,
+      "caption": {
+        "en": "Testing a water sensor",
+        "hi": "जल सेंसर का परीक्षण",
+        "gu": "પાણીના સેન્સરનું પરીક્ષણ"
+      }
+    },
+    {
+      "video": "/videos/stem-7.mp4",
+      "poster": "/videos/stem-7.jpg",
+      "seconds": 47,
+      "caption": {
+        "en": "An automatic plant-watering system",
+        "hi": "स्वचालित पौध सिंचाई प्रणाली",
+        "gu": "સ્વયંચાલિત છોડ સિંચાઈ પ્રણાલી"
+      }
+    },
+    {
+      "video": "/videos/stem-8.mp4",
+      "poster": "/videos/stem-8.jpg",
+      "seconds": 5,
+      "caption": {
+        "en": "Programming an LCD display",
+        "hi": "एलसीडी डिस्प्ले की प्रोग्रामिंग",
+        "gu": "એલસીડી ડિસ્પ્લેનું પ્રોગ્રામિંગ"
+      }
+    },
+    {
+      "video": "/videos/stem-9.mp4",
+      "poster": "/videos/stem-9.jpg",
+      "seconds": 4,
+      "caption": {
+        "en": "A class in the computer lab",
+        "hi": "कम्प्यूटर कक्ष में कक्षा",
+        "gu": "કમ્પ્યુટર ખંડમાં વર્ગ"
+      }
+    },
+    {
+      "video": "/videos/stem-10.mp4",
+      "poster": "/videos/stem-10.jpg",
+      "seconds": 54,
+      "caption": {
+        "en": "Driving a robot car from a tablet",
+        "hi": "टैबलेट से रोबोट कार चलाते हुए",
+        "gu": "ટેબ્લેટથી રોબોટ કાર ચલાવતા"
+      }
+    },
+    {
+      "video": "/videos/stem-11.mp4",
+      "poster": "/videos/stem-11.jpg",
+      "seconds": 5,
+      "caption": {
+        "en": "A hand-gesture sensor project",
+        "hi": "हाथ के इशारे से चलने वाला सेंसर प्रोजेक्ट",
+        "gu": "હાથના ઇશારાથી ચાલતો સેન્સર પ્રોજેક્ટ"
+      }
+    },
+    {
+      "video": "/videos/stem-12.mp4",
+      "poster": "/videos/stem-12.jpg",
+      "seconds": 37,
+      "caption": {
+        "en": "Presenting the smart stick",
+        "hi": "स्मार्ट छड़ी की प्रस्तुति",
+        "gu": "સ્માર્ટ લાકડીની રજૂઆત"
+      }
+    },
+    {
+      "video": "/videos/stem-13.mp4",
+      "poster": "/videos/stem-13.jpg",
+      "seconds": 35,
+      "caption": {
+        "en": "Learning together at the computer",
+        "hi": "कम्प्यूटर पर मिलकर सीखते हुए",
+        "gu": "કમ્પ્યુટર પર સાથે શીખતા"
+      }
+    }
+  ]
+}

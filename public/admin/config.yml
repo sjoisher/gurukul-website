@@ -1,0 +1,199 @@
+# Sveltia CMS configuration for vedicgurukul.com/admin.
+#
+# Each change made here is a commit to main, and every push to main deploys
+# the site (.github/workflows/deploy.yml). Changes are live in about 3 minutes.
+#
+# Text fields hold all three languages. English is required; a blank Hindi or
+# Gujarati field shows the English text on that page.
+
+backend:
+  name: github
+  repo: sjoisher/gurukul-website
+  branch: main
+  auth_methods: [token]
+  commit_messages:
+    create: "CMS: add {{collection}} “{{slug}}”"
+    update: "CMS: update {{collection}} “{{slug}}”"
+    delete: "CMS: delete {{collection}} “{{slug}}”"
+    uploadMedia: "CMS: upload “{{path}}”"
+    deleteMedia: "CMS: delete “{{path}}”"
+
+site_url: https://vedicgurukul.com
+display_url: https://vedicgurukul.com
+logo:
+  src: /images/logo.png
+
+# Originals are kept outside public/ and never deployed: scripts/media.mjs
+# makes the web-sized copies the site shows.
+media_folder: content/photos/uploads
+public_folder: /photos/uploads
+
+collections:
+  - name: news
+    label: News & Events
+    label_singular: News item
+    description: Shown on the home page, newest first (the latest 6). The section is hidden when there are none.
+    folder: content/news
+    format: json
+    extension: json
+    create: true
+    delete: true
+    slug: "{{year}}-{{month}}-{{day}}-{{hour}}{{minute}}"
+    summary: "{{date}} · {{title.en}}"
+    sortable_fields: [date]
+    media_folder: /content/photos/news
+    public_folder: /photos/news
+    fields:
+      - { name: date, label: Date, widget: datetime, type: date, format: YYYY-MM-DD }
+      # Every translated field reuses these: &text (one line), &longtext (several).
+      - name: title
+        label: Title
+        widget: object
+        collapsed: false
+        fields: &text
+          - { name: en, label: English, widget: string }
+          - { name: hi, label: हिंदी, widget: string, required: false }
+          - { name: gu, label: ગુજરાતી, widget: string, required: false }
+      - name: body
+        label: Text
+        hint: Leave a blank line between paragraphs.
+        widget: object
+        collapsed: false
+        fields: &longtext
+          - { name: en, label: English, widget: text }
+          - { name: hi, label: हिंदी, widget: text, required: false }
+          - { name: gu, label: ગુજરાતી, widget: text, required: false }
+      - { name: image, label: Photo, widget: image, required: false }
+      - { name: link, label: Link, hint: "Optional, e.g. a YouTube video or news article. Shown as “Read more”.", widget: string, required: false, default: "" }
+
+  - name: sections
+    label: Home page sections
+    label_singular: Section
+    format: json
+    files:
+      - name: glance
+        label: Numbers at a glance
+        file: content/glance.json
+        fields:
+          - name: items
+            label: Numbers
+            label_singular: Number
+            hint: Four fit on one row on a computer, two on a phone.
+            widget: list
+            summary: "{{fields.value.en}} – {{fields.label.en}}"
+            fields:
+              - { name: value, label: Number, hint: "e.g. 45, 20 years", widget: object, collapsed: false, fields: *text }
+              - { name: label, label: Label, widget: object, collapsed: false, fields: *text }
+
+      - name: teachers
+        label: Teachers
+        file: content/teachers.json
+        fields:
+          - name: people
+            label: Teachers
+            label_singular: Teacher
+            widget: list
+            summary: "{{fields.name.en}}"
+            fields:
+              - { name: name, label: Name, widget: object, collapsed: false, fields: *text }
+              - { name: note, label: Duties, widget: object, collapsed: false, fields: *text }
+
+      - name: trustees
+        label: Trustees
+        file: content/trustees.json
+        fields:
+          - name: trustees
+            label: Trustees
+            label_singular: Trustee
+            hint: The first name in the list is shown as the Founder Trustee.
+            widget: list
+            summary: "{{fields.name.en}}"
+            fields:
+              - { name: name, label: Name, widget: object, collapsed: false, fields: *text }
+
+      - name: gallery
+        label: Gallery
+        file: content/gallery.json
+        fields:
+          - name: photos
+            label: Photos
+            label_singular: Photo
+            hint: Drag to reorder. Any size of photo is fine; the site makes smaller copies.
+            widget: list
+            summary: "{{fields.caption.en}}"
+            fields:
+              - { name: image, label: Photo, widget: image, media_folder: /content/photos/gallery, public_folder: /photos/gallery }
+              - { name: caption, label: Caption, widget: object, collapsed: false, fields: *text }
+
+      - name: videos
+        label: Videos
+        file: content/videos.json
+        fields:
+          - { name: featuredYoutubeId, label: Main YouTube video, hint: "The ID from the video's link: youtube.com/watch?v=THIS_PART", widget: string }
+          - name: liveStreams
+            label: YouTube live streams
+            label_singular: Live stream
+            widget: list
+            summary: "{{fields.youtubeId}}"
+            fields:
+              - { name: youtubeId, label: YouTube video ID, hint: "youtube.com/watch?v=THIS_PART or youtube.com/live/THIS_PART", widget: string }
+          - name: reels
+            label: Instagram reels
+            label_singular: Reel
+            widget: list
+            summary: "{{fields.instagramId}}"
+            fields:
+              - { name: instagramId, label: Instagram reel ID, hint: "instagram.com/reel/THIS_PART/", widget: string }
+          - name: stem
+            label: Science & robotics clips
+            label_singular: Clip
+            hint: Upload MP4 files under 20 MB. Portrait (phone) videos look best.
+            widget: list
+            summary: "{{fields.caption.en}}"
+            fields:
+              - { name: video, label: Video (MP4), widget: file, accept: video/mp4, media_folder: /public/videos, public_folder: /videos }
+              - { name: poster, label: Cover picture, hint: Shown before the video plays., widget: image, required: false, media_folder: /public/videos, public_folder: /videos }
+              - { name: seconds, label: Length in seconds, widget: number, value_type: int, required: false }
+              - { name: caption, label: Caption, widget: object, collapsed: false, fields: *text }
+
+      - name: csr
+        label: CSR figures
+        file: content/csr.json
+        fields:
+          - { name: total, label: Total CSR requirement, hint: "e.g. ₹1.80 crore", widget: object, collapsed: false, fields: *text }
+          - name: centreFacts
+            label: Robotics, AI & Innovation Centre figures
+            label_singular: Figure
+            widget: list
+            summary: "{{fields.label.en}}: {{fields.value.en}}"
+            fields:
+              - { name: label, label: Label, widget: object, collapsed: false, fields: *text }
+              - { name: value, label: Value, widget: object, collapsed: false, fields: *text }
+          - name: levels
+            label: Sponsorship levels
+            label_singular: Level
+            widget: list
+            summary: "{{fields.title.en}} – {{fields.amount.en}}"
+            fields:
+              - { name: title, label: Title, widget: object, collapsed: false, fields: *text }
+              - { name: amount, label: Amount, widget: object, collapsed: false, fields: *text }
+              - { name: text, label: Description, widget: object, collapsed: false, fields: *text }
+
+      - name: contact
+        label: Contact & bank details
+        file: content/contact.json
+        fields:
+          - { name: phone, label: Main phone / WhatsApp / UPI number, hint: 10-digit mobile number, widget: string, pattern: ['^\s*(\+?91[\s-]?)?\d{5}\s?\d{5}\s*$', "Enter a 10-digit mobile number"] }
+          - { name: phone2, label: Second phone, widget: string, pattern: ['^\s*(\+?91[\s-]?)?\d{5}\s?\d{5}\s*$', "Enter a 10-digit mobile number"] }
+          - { name: email, label: Email, widget: string }
+          - { name: enquiryFormUrl, label: Enquiry form link (Google Form), widget: string }
+          - { name: address, label: Address, hint: One line per row., widget: object, collapsed: false, fields: *longtext }
+          - name: bank
+            label: Bank details
+            widget: object
+            collapsed: false
+            fields:
+              - { name: name, label: Bank name, widget: object, collapsed: false, fields: *text }
+              - { name: accountName, label: Account name, widget: object, collapsed: false, fields: *text }
+              - { name: accountNumber, label: Account number, widget: string }
+              - { name: ifsc, label: IFSC code, widget: string }
