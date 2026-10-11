@@ -129,12 +129,12 @@ const rows = (activities: string[]): Row[] => activities.map((activity, i) => ({
 const en: Dict = {
   name: "Sant Shri Odhavram Vaidic Gurukul",
   shortName: "Odhavram Vaidic Gurukul",
-  place: "Bhavanipur, Kutch",
+  place: "Bhavanipar, Kutch",
   meta: {
-    title: "Sant Shri Odhavram Vaidic Gurukul – Bhavanipur, Kutch",
+    title: "Sant Shri Odhavram Vaidic Gurukul – Bhavanipar, Kutch",
     // NEW
     description:
-      "A residential Vedic gurukul in Bhavanipur, Kutch, combining Vedic chanting, Sanskrit and scriptures with modern education, yoga, sports and nature-based living.",
+      "A residential Vedic gurukul in Bhavanipar, Kutch, combining Vedic chanting, Sanskrit and scriptures with modern education, yoga, sports and nature-based living.",
   },
   nav: [
     { id: "about", label: "About" },
@@ -152,7 +152,7 @@ const en: Dict = {
     tagline: "A Vedic Gurukul rooted in Dharma and Nature",
     // NEW
     intro:
-      "A residential gurukul in Bhavanipur, Kutch, where brahmacharis study the Vedas, Sanskrit and modern subjects while living by the rhythms of nature.",
+      "A residential gurukul in Bhavanipar, Kutch, where brahmacharis study the Vedas, Sanskrit and modern subjects while living by the rhythms of nature.",
     ctaVisit: "Visit or enquire",
     ctaSupport: "Support the Gurukul",
   },
@@ -165,7 +165,7 @@ const en: Dict = {
   ],
   about: {
     heading: "About the Gurukul",
-    body: "Sant Shri Odhavram Vaidic Gurukul, Bhavanipur, is dedicated to the creation of character-driven and capable brahmacharis through Vedic education combined with modern learning, discipline, and cultural values. The Gurukul follows the traditional Gurukulam system where learning is integrated with daily life, service, and spiritual practice.",
+    body: "Sant Shri Odhavram Vaidic Gurukul, Bhavanipar, is dedicated to the creation of character-driven and capable brahmacharis through Vedic education combined with modern learning, discipline, and cultural values. The Gurukul follows the traditional Gurukulam system where learning is integrated with daily life, service, and spiritual practice.",
   },
   // NEW — names taken from the Gurukul banner
   parampara: {
@@ -415,23 +415,23 @@ const en: Dict = {
   contact: {
     heading: "Contact Us",
     addressLabel: "Address",
-    address: ["Sant Shri Odhavram Vaidic Gurukul,", "Bhavanipur, Taluka Abdasa,", "District Kutch (Bhuj), Gujarat – 370650"],
+    address: ["Sant Shri Odhavram Vaidic Gurukul,", "Bhavanipar, Taluka Abdasa,", "District Kutch (Bhuj), Gujarat – 370650"],
     phoneLabel: "Phone / UPI",
     emailLabel: "Email",
     call: "Call",
     directions: "Get directions",
   },
-  footer: "© Sant Shri Odhavram Vaidic Gurukul, Bhavanipur",
+  footer: "© Sant Shri Odhavram Vaidic Gurukul, Bhavanipar",
 };
 
 const hi: Dict = {
   name: "संत श्री ओधवराम वैदिक गुरुकुल",
   shortName: "ओधवराम वैदिक गुरुकुल",
-  place: "भवानीपुर, कच्छ",
+  place: "भवानीपर, कच्छ",
   meta: {
-    title: "संत श्री ओधवराम वैदिक गुरुकुल – भवानीपुर, कच्छ",
+    title: "संत श्री ओधवराम वैदिक गुरुकुल – भवानीपर, कच्छ",
     description:
-      "कच्छ के भवानीपुर में स्थित आवासीय वैदिक गुरुकुल — वैदिक मंत्रोच्चार, संस्कृत और शास्त्रों के साथ आधुनिक शिक्षा, योग, खेल और प्रकृति के साथ जीवन।",
+      "कच्छ के भवानीपर में स्थित आवासीय वैदिक गुरुकुल — वैदिक मंत्रोच्चार, संस्कृत और शास्त्रों के साथ आधुनिक शिक्षा, योग, खेल और प्रकृति के साथ जीवन।",
   },
   nav: [
     { id: "about", label: "परिचय" },
@@ -448,7 +448,7 @@ const hi: Dict = {
   hero: {
     tagline: "धर्म और प्रकृति में निहित वैदिक गुरुकुल",
     intro:
-      "कच्छ के भवानीपुर में स्थित एक आवासीय गुरुकुल, जहाँ ब्रह्मचारी प्रकृति की लय के साथ जीते हुए वेद, संस्कृत और आधुनिक विषयों का अध्ययन करते हैं।",
+      "कच्छ के भवानीपर में स्थित एक आवासीय गुरुकुल, जहाँ ब्रह्मचारी प्रकृति की लय के साथ जीते हुए वेद, संस्कृत और आधुनिक विषयों का अध्ययन करते हैं।",
     ctaVisit: "भ्रमण या पूछताछ",
     ctaSupport: "गुरुकुल को सहयोग दें",
   },
@@ -460,7 +460,7 @@ const hi: Dict = {
   ],
   about: {
     heading: "गुरुकुल परिचय",
-    body: "संत श्री ओधवराम वैदिक गुरुकुल, भवानीपुर, वैदिक शिक्षा को आधुनिक शिक्षा, अनुशासन और सांस्कृतिक मूल्यों के साथ जोड़कर चरित्रवान और सक्षम ब्रह्मचारियों के निर्माण के लिए समर्पित है। यह गुरुकुल पारंपरिक गुरुकुलम प्रणाली का अनुसरण करता है, जहाँ शिक्षा दैनिक जीवन, सेवा और आध्यात्मिक साधना के साथ एकीकृत होती है।",
+    body: "संत श्री ओधवराम वैदिक गुरुकुल, भवानीपर, वैदिक शिक्षा को आधुनिक शिक्षा, अनुशासन और सांस्कृतिक मूल्यों के साथ जोड़कर चरित्रवान और सक्षम ब्रह्मचारियों के निर्माण के लिए समर्पित है। यह गुरुकुल पारंपरिक गुरुकुलम प्रणाली का अनुसरण करता है, जहाँ शिक्षा दैनिक जीवन, सेवा और आध्यात्मिक साधना के साथ एकीकृत होती है।",
   },
   parampara: {
     heading: "हमारी प्रेरणा",
@@ -705,23 +705,23 @@ const hi: Dict = {
   contact: {
     heading: "संपर्क करें",
     addressLabel: "पता",
-    address: ["संत श्री ओधवराम वैदिक गुरुकुल,", "भवानीपुर, तालुका अबडासा,", "जिला कच्छ (भुज), गुजरात – 370650"],
+    address: ["संत श्री ओधवराम वैदिक गुरुकुल,", "भवानीपर, तालुका अबडासा,", "जिला कच्छ (भुज), गुजरात – 370650"],
     phoneLabel: "फोन / यूपीआई",
     emailLabel: "ईमेल",
     call: "कॉल करें",
     directions: "मार्ग देखें",
   },
-  footer: "© संत श्री ओधवराम वैदिक गुरुकुल, भवानीपुर",
+  footer: "© संत श्री ओधवराम वैदिक गुरुकुल, भवानीपर",
 };
 
 const gu: Dict = {
   name: "સંત શ્રી ઓધવરામ વૈદિક ગુરુકુલ",
   shortName: "ઓધવરામ વૈદિક ગુરુકુલ",
-  place: "ભવાનીપુર, કચ્છ",
+  place: "ભવાનીપર, કચ્છ",
   meta: {
-    title: "સંત શ્રી ઓધવરામ વૈદિક ગુરુકુલ – ભવાનીપુર, કચ્છ",
+    title: "સંત શ્રી ઓધવરામ વૈદિક ગુરુકુલ – ભવાનીપર, કચ્છ",
     description:
-      "કચ્છના ભવાનીપુરમાં આવેલું નિવાસી વૈદિક ગુરુકુલ — વૈદિક મંત્રોચ્ચાર, સંસ્કૃત અને શાસ્ત્રો સાથે આધુનિક શિક્ષણ, યોગ, રમતગમત અને પ્રકૃતિ સાથેનું જીવન.",
+      "કચ્છના ભવાનીપરમાં આવેલું નિવાસી વૈદિક ગુરુકુલ — વૈદિક મંત્રોચ્ચાર, સંસ્કૃત અને શાસ્ત્રો સાથે આધુનિક શિક્ષણ, યોગ, રમતગમત અને પ્રકૃતિ સાથેનું જીવન.",
   },
   nav: [
     { id: "about", label: "પરિચય" },
@@ -738,7 +738,7 @@ const gu: Dict = {
   hero: {
     tagline: "ધર્મ અને પ્રકૃતિમાં આધારિત વૈદિક ગુરુકુલ",
     intro:
-      "કચ્છના ભવાનીપુરમાં આવેલું એક નિવાસી ગુરુકુલ, જ્યાં બ્રહ્મચારીઓ પ્રકૃતિની લય સાથે જીવતાં વેદ, સંસ્કૃત અને આધુનિક વિષયોનો અભ્યાસ કરે છે.",
+      "કચ્છના ભવાનીપરમાં આવેલું એક નિવાસી ગુરુકુલ, જ્યાં બ્રહ્મચારીઓ પ્રકૃતિની લય સાથે જીવતાં વેદ, સંસ્કૃત અને આધુનિક વિષયોનો અભ્યાસ કરે છે.",
     ctaVisit: "મુલાકાત અથવા પૂછપરછ",
     ctaSupport: "ગુરુકુલને સહયોગ આપો",
   },
@@ -750,7 +750,7 @@ const gu: Dict = {
   ],
   about: {
     heading: "ગુરુકુલ વિશે",
-    body: "સંત શ્રી ઓધવરામ વૈદિક ગુરુકુલ, ભવાનીપુર, વૈદિક શિક્ષણને આધુનિક અભ્યાસ, શિસ્ત અને સાંસ્કૃતિક મૂલ્યો સાથે જોડીને ચરિત્રવાન અને સક્ષમ બ્રહ્મચારીઓના નિર્માણ માટે સમર્પિત છે. ગુરુકુલ પરંપરાગત ગુરુકુલમ પદ્ધતિનું પાલન કરે છે, જ્યાં અભ્યાસ દૈનિક જીવન, સેવા અને આધ્યાત્મિક સાધના સાથે એકરૂપ બને છે.",
+    body: "સંત શ્રી ઓધવરામ વૈદિક ગુરુકુલ, ભવાનીપર, વૈદિક શિક્ષણને આધુનિક અભ્યાસ, શિસ્ત અને સાંસ્કૃતિક મૂલ્યો સાથે જોડીને ચરિત્રવાન અને સક્ષમ બ્રહ્મચારીઓના નિર્માણ માટે સમર્પિત છે. ગુરુકુલ પરંપરાગત ગુરુકુલમ પદ્ધતિનું પાલન કરે છે, જ્યાં અભ્યાસ દૈનિક જીવન, સેવા અને આધ્યાત્મિક સાધના સાથે એકરૂપ બને છે.",
   },
   parampara: {
     heading: "અમારી પ્રેરણા",
@@ -994,13 +994,13 @@ const gu: Dict = {
   contact: {
     heading: "સંપર્ક કરો",
     addressLabel: "સરનામું",
-    address: ["સંત શ્રી ઓધવરામ વૈદિક ગુરુકુલ,", "ભવાનીપુર, તાલુકો અબડાસા,", "જિલ્લો કચ્છ (ભુજ), ગુજરાત – 370650"],
+    address: ["સંત શ્રી ઓધવરામ વૈદિક ગુરુકુલ,", "ભવાનીપર, તાલુકો અબડાસા,", "જિલ્લો કચ્છ (ભુજ), ગુજરાત – 370650"],
     phoneLabel: "ફોન / યુપીઆઈ",
     emailLabel: "ઈમેલ",
     call: "ફોન કરો",
     directions: "રસ્તો જુઓ",
   },
-  footer: "© સંત શ્રી ઓધવરામ વૈદિક ગુરુકુલ, ભવાનીપુર",
+  footer: "© સંત શ્રી ઓધવરામ વૈદિક ગુરુકુલ, ભવાનીપર",
 };
 
 export const dict: Record<Lang, Dict> = { en, hi, gu };
