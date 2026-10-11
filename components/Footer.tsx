@@ -1,6 +1,6 @@
 import { langLabel, langPath, langs, type Dict, type Lang } from "@/lib/i18n";
 import { site } from "@/lib/site";
-import { Mark } from "./Mark";
+import { Logo } from "./Logo";
 
 export function Footer({ lang, t }: { lang: Lang; t: Dict }) {
   return (
@@ -8,7 +8,7 @@ export function Footer({ lang, t }: { lang: Lang; t: Dict }) {
       <div className="container-page grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <div className="flex items-center gap-3">
-            <Mark className="h-10 w-10" />
+            <span className="shrink-0 rounded-2xl bg-white p-2"><Logo className="h-16 w-auto" /></span>
             <span className="font-display text-lg font-semibold text-white">{t.name}</span>
           </div>
           <p className="mt-3 text-sm">{t.hero.tagline}</p>
