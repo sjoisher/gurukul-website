@@ -13,6 +13,7 @@ export const site = {
   phone2: digits(contact.phone2),
   email: contact.email.trim(),
   postcode: "370650",
+  youtubeChannel: videos.youtubeChannel.trim().replace(/\/+$/, ""),
   youtubeId: videos.featuredYoutubeId,
   liveStreams: videos.liveStreams.map((v) => v.youtubeId),
   reels: videos.reels.map((v) => v.instagramId),

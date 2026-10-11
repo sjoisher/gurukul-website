@@ -129,6 +129,7 @@ collections:
         label: Videos
         file: content/videos.json
         fields:
+          - { name: youtubeChannel, label: YouTube channel link, hint: "e.g. https://www.youtube.com/@vaidikgurukulbhavanipur. Linked in the media section (its Shorts) and the footer.", widget: string }
           - { name: featuredYoutubeId, label: Main YouTube video, hint: "The ID from the video's link: youtube.com/watch?v=THIS_PART", widget: string }
           - name: liveStreams
             label: YouTube live streams
