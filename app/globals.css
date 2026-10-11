@@ -5,7 +5,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 4.5rem;
   }
   body {
     @apply bg-parchment font-sans text-ink antialiased;
@@ -13,34 +13,48 @@
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-saffron;
   }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
 }
 
 @layer components {
+  .container-page {
+    @apply mx-auto max-w-page px-4 sm:px-6;
+  }
+  .section {
+    @apply py-16 sm:py-24;
+  }
   .eyebrow {
     @apply text-xs font-semibold uppercase tracking-[0.2em] text-saffron-dark;
   }
+  .h2 {
+    @apply mt-3 font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl;
+  }
+  .lead {
+    @apply mt-4 text-lg leading-relaxed text-muted;
+  }
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-saffron px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-saffron-dark disabled:opacity-60;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-saffron px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-saffron-dark;
   }
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-maroon/20 bg-white px-6 py-3 text-sm font-semibold text-maroon transition-colors hover:border-maroon/50;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-earth/25 bg-white px-6 py-3 text-sm font-semibold text-earth transition-colors hover:border-earth/60;
   }
-  .btn-ghost-light {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10;
+  .btn-light {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/40 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition-colors hover:bg-white/20;
   }
   .card {
-    @apply rounded-2xl border border-sand bg-white shadow-[0_1px_2px_rgba(42,36,32,0.04)];
+    @apply rounded-2xl border border-sand bg-white shadow-[0_1px_2px_rgba(43,35,28,0.04)];
   }
-  .field-label {
-    @apply mb-1.5 block text-sm font-medium text-ink;
+}
+
+@layer components {
+  .lightbox-btn {
+    @apply flex h-11 w-11 items-center justify-center rounded-full bg-white/15 text-white transition-colors hover:bg-white/30;
   }
-  .field-input {
-    @apply block w-full rounded-lg border border-sand bg-parchment px-3.5 py-2.5 text-ink placeholder:text-muted/60 focus:border-saffron focus:outline-none focus:ring-2 focus:ring-saffron/30;
-  }
-  .footer-heading {
-    @apply text-xs font-semibold uppercase tracking-[0.2em] text-saffron-light;
-  }
-  .prose-gurukul p {
-    @apply mt-4 text-lg leading-relaxed text-muted first:mt-0;
-  }
+}
+
+/* Letter-spacing breaks apart Devanagari and Gujarati conjuncts. */
+:is([lang^="hi"], [lang^="gu"]) :is(.eyebrow, [class*="tracking-"]) {
+  letter-spacing: normal !important;
 }

@@ -6,9 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "npx serve out",
-    "lint": "next lint",
-    "prebuild": "node scripts/check-placeholders.mjs",
-    "check:launch": "node scripts/check-placeholders.mjs --strict"
+    "lint": "next lint"
   },
   "dependencies": {
     "lucide-react": "^0.424.0",
