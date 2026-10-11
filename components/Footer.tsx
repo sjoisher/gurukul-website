@@ -1,77 +1,46 @@
-import Link from "next/link";
-import { Mail, MapPin, Phone } from "lucide-react";
-import { programs } from "@/lib/content";
-import { fullAddress, nav, site } from "@/lib/site";
-import { LotusMark } from "./Logo";
+import { langLabel, langPath, langs, type Dict, type Lang } from "@/lib/i18n";
+import { site } from "@/lib/site";
+import { Mark } from "./Mark";
 
-export function Footer() {
+export function Footer({ lang, t }: { lang: Lang; t: Dict }) {
   return (
-    <footer className="bg-maroon-dark text-sand">
-      <div className="mx-auto grid max-w-page gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
-        <div className="md:col-span-1">
-          <div className="flex items-center gap-2.5">
-            <LotusMark />
-            <span className="font-display text-xl font-semibold text-white">{site.name}</span>
+    <footer className="bg-ink text-white/80">
+      <div className="container-page grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
+        <div>
+          <div className="flex items-center gap-3">
+            <Mark className="h-10 w-10" />
+            <span className="font-display text-lg font-semibold text-white">{t.name}</span>
           </div>
-          <p className="mt-4 text-sm leading-relaxed text-sand/80">{site.tagline}</p>
-          <p className="mt-4 font-display text-lg italic text-saffron-light">
-            विद्या ददाति विनयम्
+          <p className="mt-3 text-sm">{t.hero.tagline}</p>
+          <p className="mt-4 text-sm text-saffron-light">{t.motto}</p>
+          <p className="mt-4 text-xs leading-relaxed text-white/55">
+            {t.trust.intro}
+            <br />
+            {t.trust.facts.map((f) => `${f.label}: ${f.value}`).join(" · ")}
           </p>
-          <p className="text-xs text-sand/60">Knowledge gives humility.</p>
         </div>
-
-        <div>
-          <h2 className="footer-heading">Explore</h2>
-          <ul className="mt-4 space-y-2 text-sm">
-            {nav.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className="hover:text-white">{item.label}</Link>
-              </li>
+        <nav aria-label="Sections">
+          <ul className="grid grid-cols-2 gap-2 text-sm">
+            {t.nav.map((n) => (
+              <li key={n.id}><a href={`#${n.id}`} className="hover:text-white">{n.label}</a></li>
             ))}
           </ul>
-        </div>
-
-        <div>
-          <h2 className="footer-heading">Programs</h2>
-          <ul className="mt-4 space-y-2 text-sm">
-            {programs.map((p) => (
-              <li key={p.slug}>
-                <Link href={`/programs/${p.slug}/`} className="hover:text-white">{p.name}</Link>
-              </li>
+        </nav>
+        <div className="space-y-2 text-sm">
+          <p><a href={`tel:+91${site.phone}`} className="hover:text-white">{site.phone}</a> · <a href={`tel:+91${site.phone2}`} className="hover:text-white">{site.phone2}</a></p>
+          <p><a href={`mailto:${site.email}`} className="break-all hover:text-white">{site.email}</a></p>
+          <p className="pt-2">
+            {langs.map((l, i) => (
+              <span key={l}>
+                {i > 0 && " · "}
+                <a href={langPath[l]} hrefLang={l} lang={l} className={l === lang ? "font-semibold text-white" : "hover:text-white"}>{langLabel[l]}</a>
+              </span>
             ))}
-          </ul>
-        </div>
-
-        <div>
-          <h2 className="footer-heading">Visit us</h2>
-          <ul className="mt-4 space-y-3 text-sm">
-            <li className="flex gap-2.5">
-              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-saffron" />
-              <span>{fullAddress()}</span>
-            </li>
-            <li className="flex gap-2.5">
-              <Phone className="mt-0.5 h-4 w-4 shrink-0 text-saffron" />
-              <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="hover:text-white">{site.phone}</a>
-            </li>
-            <li className="flex gap-2.5">
-              <Mail className="mt-0.5 h-4 w-4 shrink-0 text-saffron" />
-              <a href={`mailto:${site.email}`} className="break-all hover:text-white">{site.email}</a>
-            </li>
-          </ul>
-          <ul className="mt-4 space-y-1 text-sm text-sand/80">
-            {site.sessions.map((s) => (
-              <li key={s.day}>
-                <span className="font-medium text-white">{s.day}</span> · {s.time}
-              </li>
-            ))}
-          </ul>
+          </p>
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-page flex-col gap-2 px-4 py-5 text-xs text-sand/60 sm:flex-row sm:justify-between sm:px-6">
-          <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
-          <p>सर्वे भवन्तु सुखिनः · May all be happy.</p>
-        </div>
+        <p className="container-page py-5 text-xs text-white/50">{t.footer}</p>
       </div>
     </footer>
   );

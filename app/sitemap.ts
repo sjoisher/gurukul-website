@@ -1,10 +1,15 @@
 import type { MetadataRoute } from "next";
-import { programs } from "@/lib/content";
-import { nav, site } from "@/lib/site";
+import { langPath, langs } from "@/lib/i18n";
+import { site } from "@/lib/site";
 
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const paths = ["/", ...nav.map((n) => n.href), ...programs.map((p) => `/programs/${p.slug}/`)];
-  return paths.map((path) => ({ url: `${site.url}${path}`, changeFrequency: "monthly", priority: path === "/" ? 1 : 0.7 }));
+  const languages = Object.fromEntries(langs.map((l) => [l, `${site.url}${langPath[l]}`]));
+  return langs.map((l) => ({
+    url: `${site.url}${langPath[l]}`,
+    changeFrequency: "monthly",
+    priority: l === "en" ? 1 : 0.9,
+    alternates: { languages },
+  }));
 }

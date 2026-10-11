@@ -1,30 +1,30 @@
-# Gurukul website
+# Sant Shri Odhavram Vaidic Gurukul — website
 
-Static site for Gurukul, built with Next.js 14 (static export) and Tailwind CSS.
+Trilingual static site for the Gurukul at Bhavanipar, Kutch: English at `/`, Hindi at `/hi/`, Gujarati at `/gu/`. Built with Next.js 14 (static export) and Tailwind CSS.
 
 ```bash
 npm install
-npm run dev          # http://localhost:3000
-npm run build        # static site in ./out — upload its contents to any web host
-npm run check:launch # fails if placeholder details are still in the content
+npm run dev     # http://localhost:3000
+npm run build   # static site in ./out — upload its contents to the web host
 ```
 
-## Pages
+## Sections
 
-| Path | What's on it |
+Hero · at a glance · about · inspiration (the five figures on the banner) · vision · learning & activities · science, technology & robotics (13 videos) · daily dinacharya (full timetable, skill classes, sports rota, PDF) · teachers · gallery (20 photos with lightbox) · media & live (YouTube video, live streams, Instagram reels) · the Trust (registration, 80G, objectives, trustees) · support & donations (QR, bank details with copy buttons) · visit & contact (address, phones, email, directions, Google Form).
+
+## Where things live
+
+| What | File |
 |---|---|
-| `/` | Hero with shloka of the week, four pillars, programs, a typical session, approach, festivals, FAQ, call to action |
-| `/about/` | Story, mission/vision/promise, pillars, what we look for in teachers |
-| `/programs/` and `/programs/<slug>/` | All seven programs, each with its own page (outcomes, format, enquiry link) |
-| `/calendar/` | Weekly class timings, the rhythm of a session, festivals through the year |
-| `/admissions/` | Four-step process, free trial enquiry form, full FAQ (with FAQ rich-result markup) |
-| `/contact/` | Phone, WhatsApp, email, address, hours, enquiry form, optional map |
+| All page text, in all three languages | `lib/i18n.ts` |
+| Phone numbers, email, bank numbers, video IDs, gallery list | `lib/site.ts` |
+| Page layout | `components/HomePage.tsx` |
+| Photos (`N.jpg` full size, `N-sm.jpg` grid) | `public/images/gallery/` |
+| Science videos and their poster frames | `public/videos/` |
+| Dinacharya PDF | `public/documents/Dinacharya.pdf` |
 
-## Editing content
+To add a photo: save it as `public/images/gallery/21.jpg` (about 1400 px wide) and `21-sm.jpg` (600 px wide), add `{ n: 21, w, h }` to `gallery` in `lib/site.ts`, and add a caption at the end of `gallery.captions` for each language in `lib/i18n.ts`.
 
-- **`lib/site.ts`** holds the gurukul's own details: name, contact details, address, class timings, map and social links. Values marked `PLACEHOLDER` (and the `00000` phone numbers) must be replaced before launch. `npm run build` lists any that remain.
-- **`lib/content.ts`** holds programs, pillars, FAQs, festivals, the sample session and admission steps. Adding a program here creates its page, its card, its footer link, its form option and its sitemap entry.
+## Sources
 
-## Enquiry form
-
-With no configuration, the form opens the visitor's email client addressed to `site.email`. To receive submissions directly, set `NEXT_PUBLIC_FORM_ENDPOINT` (see `.env.local.example`) to a form service URL such as Formspree, and rebuild.
+Content comes from the previous gurukul.joisher.com page, the Dinacharya PDF, the Trust letterhead (trustee list) and videos shared on WhatsApp. Text that was new in this version is marked `NEW` in `lib/i18n.ts` and should be read by a native Hindi and Gujarati speaker.
