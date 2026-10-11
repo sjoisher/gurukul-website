@@ -108,8 +108,9 @@ jobs:
           get() {
             port=80; [ "$1" = https ] && port=443
             rm -f "$4"; : > "$4"
-            curl -sk --max-time 30 -A "Mozilla/5.0 (deploy check)" --resolve "$HOST:$port:$2" \
-              -o "$4" -w '%{http_code} %{content_type} %{size_download}B -> %{redirect_url}' "$1://$HOST$3"
+            # Never let a failed or timed-out request abort the step (the shell runs with -e).
+            curl -sk --connect-timeout 10 --max-time 60 -A "Mozilla/5.0 (deploy check)" --resolve "$HOST:$port:$2" \
+              -o "$4" -w '%{http_code} %{content_type} %{size_download}B -> %{redirect_url}' "$1://$HOST$3" || true
           }
           show() { echo "      body: $(head -c 400 "$1" | tr '\n\r\t' '   ')"; }
 
