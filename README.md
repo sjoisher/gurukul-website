@@ -27,4 +27,16 @@ To add a photo: save it as `public/images/gallery/21.jpg` (about 1400 px wide) a
 
 ## Sources
 
-Content comes from the previous gurukul.joisher.com page, the Dinacharya PDF, the Trust letterhead (trustee list) and videos shared on WhatsApp. Text that was new in this version is marked `NEW` in `lib/i18n.ts` and should be read by a native Hindi and Gujarati speaker.
+Content comes from the previous gurukul.joisher.com page (the site now lives at vedicgurukul.com), the Dinacharya PDF, the Trust letterhead (trustee list) and videos shared on WhatsApp. Text that was new in this version is marked `NEW` in `lib/i18n.ts` and should be read by a native Hindi and Gujarati speaker.
+
+## Deploying to vedicgurukul.com
+
+The site is hosted on cPanel (`bh-20.webhostbox.net`) and deployed by the **Deploy** GitHub Actions workflow, which builds the site and uploads `out/` over FTPS.
+
+1. In cPanel → **FTP Accounts**, create an account whose directory is vedicgurukul.com's document root.
+2. In GitHub → Settings → Secrets and variables → Actions, add `FTP_HOST` (`bh-20.webhostbox.net`), `FTP_USER` and `FTP_PASSWORD`.
+3. Actions → **Deploy** → Run workflow, with `dry_run` = `true`. Check the log lists the files you expect.
+4. Run it again with `dry_run` = `false`. The last step asks the server for vedicgurukul.com directly, so it works before DNS has moved.
+5. Once DNS points at the server and AutoSSL has issued a certificate, turn on cPanel → Domains → **Force HTTPS Redirect**.
+
+`public/.htaccess` ships with the site: www → apex redirect, hidden dotfiles, caching and gzip.
